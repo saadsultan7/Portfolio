@@ -51,7 +51,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ title, description, imageSrcs
                 alignItems: 'center',
                 height: '100%',
                 objectFit: 'contain',
-                backgroundColor:"pink"
+                // backgroundColor:"pink"
               }}
               loading="lazy"
             />
