@@ -31,12 +31,16 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ title, description, imageSrcs
         <div className="image-container">
           {cachedImages.map((src, index) => (
             <img 
+
               key={index}
               src={src} 
               alt={`${title} - Image ${index + 1}`}
               className="responsive-image"
               style={{
                 display: index === currentImageIndex ? 'block' : 'none',
+                borderRadius:20,
+                justifyContent:"center",
+                alignContent:"center",
               }}
             />
           ))}

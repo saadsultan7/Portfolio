@@ -15,7 +15,10 @@ const Home: React.FC = () => {
         </h3>
         
         <br /><br /><br />
-        <a href="#Projects" id="btn-project"><b>Projects</b></a>
+        <a href="#Projects" id="btn-project">
+          <span className='ripple'/>
+          <div>Projects</div>
+        </a>
       
       </div>
       <center>
