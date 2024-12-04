@@ -33,6 +33,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ title, description, imageSrcs
   return (
     <div className={`project-item ${reverse ? 'reverse' : ''}`}>
       <div className="project-details">
+        
         <h3 data-aos={reverse ? "fade-up-left" : "fade-up-right"}>{title}</h3>
         <p data-aos={reverse ? "fade-up-left" : "fade-up-right"}>{description}</p>
       </div>
@@ -66,6 +67,9 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ title, description, imageSrcs
 const Projects: React.FC = () => {
   return (
     <section id="Projects">
+        <center>
+    <hr data-aos="zoom-in" />
+  </center>
       <div className="project-section">
         <h1 data-aos="fade-up">Projects</h1>
         <p data-aos="fade-up">

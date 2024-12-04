@@ -1,23 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import cocosignLogo from '../assets/cocosign.png';
+import cocosignLogo from '../assets/cover.png';
 import 'boxicons/css/boxicons.min.css';
 
 const Navbar: React.FC = () => {
-  const [isDarkMode, setIsDarkMode] = useState(true); // Set initial state to true
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
-    // Check if there's a saved mode preference
     const savedMode = localStorage.getItem('mode');
     if (savedMode === 'light-mode') {
       setIsDarkMode(false);
     } else {
-      // If no preference or it's set to 'dark-mode', use dark mode
       setIsDarkMode(true);
       document.body.classList.add('dark');
     }
-  }, []); // Empty dependency array ensures this runs only once on mount
+  }, []);
 
   useEffect(() => {
     if (isDarkMode) {
@@ -40,25 +38,30 @@ const Navbar: React.FC = () => {
     setIsSearchActive(!isSearchActive);
   };
 
+  // New function to close sidebar
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+  };
+
   return (
     <nav className={isSidebarOpen ? 'active' : ''}>
       <div className="nav-bar">
         <i className="bx bx-menu sidebarOpen" onClick={toggleSidebar}></i>
         <span className="logo navLogo">
-          <a href="#Home"><img src={cocosignLogo} alt="Logo" /></a>
+          <a href="#Home" onClick={closeSidebar}><img src={cocosignLogo} alt="Logo" /></a>
         </span>
 
         <div className="menu">
           <div className="logo-toggle">
-            <span className="logo"><a href="#Home"><img src={cocosignLogo} alt="Logo" /></a></span>
+            <span className="logo"><a href="#Home" onClick={closeSidebar}><img src={cocosignLogo} alt="Logo" /></a></span>
             <i className="bx bx-x siderbarClose" onClick={toggleSidebar}></i>
           </div>
 
           <ul className="nav-links">
-            <li><a href="#Home">Home</a></li>
-            <li><a href="#About">About</a></li>
-            <li><a href="#Projects">Projects</a></li>
-            <li><a href="#Contact">Contact</a></li>
+            <li><a href="#Home" onClick={closeSidebar}>Home</a></li>
+            <li><a href="#About" onClick={closeSidebar}>About</a></li>
+            <li><a href="#Projects" onClick={closeSidebar}>Projects</a></li>
+            <li><a href="#Contact" onClick={closeSidebar}>Contact</a></li>
           </ul>
         </div>
 
@@ -81,10 +84,8 @@ const Navbar: React.FC = () => {
           </div>
         </div>
       </div>
-      
     </nav>
   );
 };
 
 export default Navbar;
-

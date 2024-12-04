@@ -1,7 +1,6 @@
 import  { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import About from './components/About';
@@ -15,17 +14,18 @@ function App() {
       offset: 90,
       duration: 1500,
       once: false,
+      easing: 'ease-in-out',
     });
   }, []);
 
   return (
-    <div className="App">
+    <>
       <Navbar />
       <Home />
       <About />
       <Projects />
       <Contact />
-    </div>
+    </>
   );
 }
 
