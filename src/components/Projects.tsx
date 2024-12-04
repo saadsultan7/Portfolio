@@ -1,8 +1,6 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
+import ProjectItem from './ProjectItem';
 import chatImage2 from '../assets/s0.jpg';
-// import tikImage2 from '../assets/s1.png';
-// import tikImage3 from '../assets/s2.png';
-// import tikImage1 from '../assets/s10.jpg';
 import parchi1 from '../assets/parchi1.jpg';
 import parchi2 from '../assets/parchi2.jpg';
 import parchi3 from '../assets/parchi3.jpg';
@@ -16,63 +14,12 @@ import foodImage1 from '../assets/food1.jpg';
 import foodImage2 from '../assets/food2.jpg';
 import foodImage3 from '../assets/food3.jpg';
 
-interface ProjectItemProps {
-  title: string;
-  description: string;
-  imageSrcs: string[];
-  reverse?: boolean;
-}
-
-const ProjectItem: React.FC<ProjectItemProps> = ({ title, description, imageSrcs, reverse }) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  const nextImage = useCallback(() => {
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % imageSrcs.length);
-  }, [imageSrcs.length]);
-
-  const prevImage = useCallback(() => {
-    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + imageSrcs.length) % imageSrcs.length);
-  }, [imageSrcs.length]);
-
-  return (
-    <div className={`project-item ${reverse ? 'reverse' : ''}`}>
-      <div className="project-details">
-        
-        <h3 data-aos={reverse ? "fade-up-left" : "fade-up-right"}>{title}</h3>
-        <p data-aos={reverse ? "fade-up-left" : "fade-up-right"}>{description}</p>
-      </div>
-      <div className="project-images" data-aos={reverse ? "fade-up-right" : "fade-up-left"}>
-        <button className="slider-button prev" onClick={prevImage} aria-label="Previous image">&lt;</button>
-        <div className="image-container">
-          {imageSrcs.map((src, index) => (
-            <img 
-              key={index}
-              src={src} 
-              alt={`${title} - Image ${index + 1}`}
-              style={{
-                display: index === currentImageIndex ? 'block' : 'none',
-                width: '100%',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '100%',
-                objectFit: 'contain',
-              }}
-              loading="lazy"
-            />
-          ))}
-        </div>
-        <button className="slider-button next" onClick={nextImage} aria-label="Next image">&gt;</button>
-      </div>
-    </div>
-  );
-};
-
 const Projects: React.FC = () => {
   return (
     <section id="Projects">
-        <center>
-    <hr data-aos="zoom-in" />
-  </center>
+      <center>
+        <hr data-aos="zoom-in" />
+      </center>
       <div className="project-section">
         <h1 data-aos="fade-up">Projects</h1>
         <p data-aos="fade-up">
@@ -101,8 +48,8 @@ const Projects: React.FC = () => {
 
         <ProjectItem
           title="Parchi"
-          description="I have developed a Tic-Tac-Toe game in Android Studio, and it was my first project. I built it using the JAVA language. In this application, I utilized a two-dimensional array and implemented the dependency of Lottie files for animations."
-          imageSrcs={[parchi1, parchi2, parchi3,parchi4]}
+          description="This is a Point Of Sale application for different types of vendors. Developed on react-native the backend was developed in python django and the database used is postgresql. For state management I used Redux. It has bluetooth printer integration, camera integration, and many more."
+          imageSrcs={[parchi1, parchi2, parchi3, parchi4]}
           reverse
         />
       </div>
