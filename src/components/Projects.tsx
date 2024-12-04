@@ -1,16 +1,20 @@
 import React, { useState, useCallback } from 'react';
 import chatImage2 from '../assets/s0.jpg';
-import tikImage2 from '../assets/s1.png';
-import tikImage3 from '../assets/s2.png';
-import tikImage1 from '../assets/s10.jpg';
+// import tikImage2 from '../assets/s1.png';
+// import tikImage3 from '../assets/s2.png';
+// import tikImage1 from '../assets/s10.jpg';
+import parchi1 from '../assets/parchi1.jpg';
+import parchi2 from '../assets/parchi2.jpg';
+import parchi3 from '../assets/parchi3.jpg';
+import parchi4 from '../assets/parchi4.jpg';
 import chatImage3 from '../assets/s11.jpg';
 import noorImage1 from '../assets/s21.jpg';
 import noorImage2 from '../assets/s22.jpg';
 import noorImage3 from '../assets/s23.jpg';
 import chatImage1 from '../assets/s24.jpg';
-import foodImage1 from '../assets/ss1.png';
-import foodImage2 from '../assets/ss2.png';
-import foodImage3 from '../assets/ss3.png';
+import foodImage1 from '../assets/food1.jpg';
+import foodImage2 from '../assets/food2.jpg';
+import foodImage3 from '../assets/food3.jpg';
 
 interface ProjectItemProps {
   title: string;
@@ -52,7 +56,6 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ title, description, imageSrcs
                 alignItems: 'center',
                 height: '100%',
                 objectFit: 'contain',
-                // backgroundColor:"pink"
               }}
               loading="lazy"
             />
@@ -97,9 +100,9 @@ const Projects: React.FC = () => {
         />
 
         <ProjectItem
-          title="Tik-Tac-Toe"
+          title="Parchi"
           description="I have developed a Tic-Tac-Toe game in Android Studio, and it was my first project. I built it using the JAVA language. In this application, I utilized a two-dimensional array and implemented the dependency of Lottie files for animations."
-          imageSrcs={[tikImage1, tikImage2, tikImage3]}
+          imageSrcs={[parchi1, parchi2, parchi3,parchi4]}
           reverse
         />
       </div>
