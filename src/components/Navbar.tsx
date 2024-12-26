@@ -65,15 +65,15 @@ const Navbar: React.FC = () => {
           </ul>
         </div>
 
-        <div className="darkLight-searchBox">
+          <div className={`searchToggle ${isSearchActive ? 'active' : ''}`} onClick={toggleSearch}>
+            {/* <i className="bx bx-x cancel"></i>
+            <i className="bx bx-search search"></i> */}
+          </div>
+
+          <div className="darkLight-searchBox">
           <div className={`dark-light ${isDarkMode ? 'active' : ''}`} onClick={toggleDarkMode}>
             <i className="bx bx-moon moon"></i>
             <i className="bx bx-sun sun"></i>
-          </div>
-
-          <div className={`searchToggle ${isSearchActive ? 'active' : ''}`} onClick={toggleSearch}>
-            <i className="bx bx-x cancel"></i>
-            <i className="bx bx-search search"></i>
           </div>
 
           <div className="searchBox">
