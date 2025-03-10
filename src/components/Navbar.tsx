@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import cocosignLogo from '../assets/cover.png';
 import 'boxicons/css/boxicons.min.css';
+import MagneticText from './MagneticText';
 
 const Navbar: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
@@ -47,21 +48,21 @@ const Navbar: React.FC = () => {
     <nav className={isSidebarOpen ? 'active' : ''}>
       <div className="nav-bar">
         <i className="bx bx-menu sidebarOpen" onClick={toggleSidebar}></i>
-        <span className="logo navLogo">
+        <span className="logo navLogo logo-with-line">
           <a href="#Home" onClick={closeSidebar}><img src={cocosignLogo} alt="Logo" /></a>
         </span>
 
         <div className="menu">
           <div className="logo-toggle">
-            <span className="logo"><a href="#Home" onClick={closeSidebar}><img src={cocosignLogo} alt="Logo" /></a></span>
+            <span className="logo logo-with-line"><a href="#Home" onClick={closeSidebar}><img src={cocosignLogo} alt="Logo" /></a></span>
             <i className="bx bx-x siderbarClose" onClick={toggleSidebar}></i>
           </div>
 
           <ul className="nav-links">
-            <li><a href="#Home" onClick={closeSidebar}>Home</a></li>
-            <li><a href="#About" onClick={closeSidebar}>About</a></li>
-            <li><a href="#Projects" onClick={closeSidebar}>Projects</a></li>
-            <li><a href="#Contact" onClick={closeSidebar}>Contact</a></li>
+            <li><a href="#Home" onClick={closeSidebar}><MagneticText>Home</MagneticText></a></li>
+            <li><a href="#About" onClick={closeSidebar}><MagneticText>About</MagneticText></a></li>
+            <li><a href="#Projects" onClick={closeSidebar}><MagneticText>Projects</MagneticText></a></li>
+            <li><a href="#Contact" onClick={closeSidebar}><MagneticText>Contact</MagneticText></a></li>
           </ul>
         </div>
 

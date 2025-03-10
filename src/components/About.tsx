@@ -1,4 +1,5 @@
 import React from 'react';
+import MagneticText from './MagneticText';
 
 const About: React.FC = () => {
   return (
@@ -41,12 +42,12 @@ const About: React.FC = () => {
         </div>
         <div>
           <h3 className="my-skills" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-delay="300">
-            My Skills
+            <MagneticText>My Skills</MagneticText>
           </h3>
           <div className="skills">
             {['React Native', 'React', 'Firebase', 'JavaScript', 'C++', 'ANDROID STUDIO', 'Python', 'My SQL', 'REDUX', 'Django', 'Git Hub', 'Git'].map((skill, index) => (
               <div key={index} className="skills_skill" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-delay="300">
-                {skill}
+                <MagneticText>{skill}</MagneticText>
               </div>
             ))}
           </div>

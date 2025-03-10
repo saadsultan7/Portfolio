@@ -1,9 +1,10 @@
 import React, { useState, useCallback } from 'react';
 import useImageCache from '../hooks/useImageCache';
+import MagneticText from './MagneticText';
 
 interface ProjectItemProps {
-  title: string;
-  description: string;
+  title: React.ReactNode;
+  description: React.ReactNode;
   imageSrcs: string[];
   reverse?: boolean;
 }
@@ -31,7 +32,6 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ title, description, imageSrcs
         <div className="image-container">
           {cachedImages.map((src, index) => (
             <img 
-
               key={index}
               src={src} 
               alt={`${title} - Image ${index + 1}`}

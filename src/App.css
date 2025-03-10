@@ -68,7 +68,7 @@ nav {
   position: fixed;
   top: 0;
   left: 0;
-  height: 70px;
+  height: 90px;
   width: 100%;
   background-color: var(--nav-color);
   background-blend-mode: darken;
@@ -103,7 +103,19 @@ nav .nav-bar .logo a {
   text-decoration: none;
 }
 .logo img {
-  height: 70px;
+  left:25px;
+  margin-bottom: 5px;
+  margin-left: -10px;
+  height: 60px;
+  position: relative;
+  z-index: 2;
+}
+
+.logo a {
+  position: relative;
+  display: inline-block;
+  transform-style: preserve-3d;
+  perspective: 500px;
 }
 .menu .logo-toggle {
   display: none;
@@ -111,6 +123,7 @@ nav .nav-bar .logo a {
 
 .nav-bar .nav-links {
   display: flex;
+  margin-left: 100px;
   align-items: center;
 }
 .nav-bar .nav-links li {
@@ -122,28 +135,12 @@ nav .nav-bar .logo a {
 .nav-links li a {
   position: relative;
   color: var(--text-color);
-  font-size: 17px;
+  font-size: 19px;
   font-weight: 400;
   padding: 7px 13px;
   border-radius: 3px;
   text-decoration: none;
-}
-.nav-links li a::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  height: 3px;
-  /* width: 0; */
-  border-radius: 50%;
-  background-color: var(--main);
-  opacity: 0;
-  transition: all 0.6s ease;
-}
-.nav-links li:hover a::before {
-  opacity: 1;
-  width: 100%;
+  overflow: hidden;
 }
 
 .nav-bar .darkLight-searchBox {
@@ -294,8 +291,8 @@ body.dark .search-field i {
 .home .image-container {
   border: 2px solid black;
   border-radius: 100%;
-  width: 150px;
-  height: 150px;
+  width: 170px;
+  height: 170px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -330,7 +327,7 @@ body.dark .search-field i {
   color: black;
   text-size-adjust: 30px  ;
   align-content: center;
-  transition: background-color 0.5s ease, color 0.5s ease;
+  transition: all 0.3s ease;
 }
 
 .ripple {
@@ -461,6 +458,32 @@ hr {
   font-size: 18px;
   background: rgba(153, 153, 153, 0.2);
   border-radius: 5px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.skills_skill:hover {
+  transform: translateY(-3px);
+  /* background: var(--main);
+  color: var(--body-color); */
+}
+.skills_skill::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: -100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    /* rgba(255, 255, 255, 0.2), */
+    transparent
+  );
+  transition: 0.5s;
+}
+.skills_skill:hover::after {
+  left: 100%;
 }
 #Contact {
   padding-top: 7%;
@@ -488,6 +511,28 @@ hr {
   padding-bottom: 1.3%;
   width: 25%;
   text-align: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+#Contact ul li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--main);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.3s ease;
+  z-index: -1;
+}
+#Contact ul li:hover {
+  transform: translateY(-5px);
+}
+#Contact ul li:hover::before {
+  transform: scaleY(1);
 }
 #Contact ul li:nth-child(1) {
   background-color: #12aa5e98;
@@ -628,6 +673,12 @@ hr {
   margin-bottom: 4rem;
   gap: 2rem;
   border-radius: 200px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .project-item.reverse {
@@ -760,4 +811,77 @@ hr {
   .nav-bar .nav-links {
     flex-direction: column;
   }
+}
+
+.magnetic-text {
+  cursor: default;
+  position: relative;
+  z-index: 1;
+}
+
+.magnetic-text::before {
+  content: '';
+  position: absolute;
+  inset: -10px;
+  border-radius: 4px;
+  background: radial-gradient(
+    circle at center,
+    rgba(24, 252, 169, 0.1),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.magnetic-text:hover::before {
+  opacity: 1;
+}
+
+/* Character-specific magnetic effect styling */
+.home-paragraph span {
+  margin: 0 1px;  /* Add slight spacing between characters */
+}
+
+.home-paragraph .magnetic-text {
+  display: inline-block;
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Adjust the magnetic effect strength for individual characters */
+.home-paragraph .magnetic-text:hover {
+  color: var(--main);
+}
+
+/* Logo bottom line animation */
+.logo-with-line a {
+  position: relative;
+  display: inline-block;
+}
+
+.logo-with-line a::before {
+  content: "";
+  position: absolute;
+  left: 25px;
+  bottom: 45px;
+  width: 90%;
+  height: 2px;
+  background: var(--main);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.logo-with-line a:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Remove the magnetic animation from the logo */
+.logo img {
+  margin-bottom: 5px;
+  margin-left: -10px;
+  height: 60px;
+  position: relative;
+  z-index: 2;
 }

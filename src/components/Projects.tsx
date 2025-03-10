@@ -1,5 +1,6 @@
 import React from 'react';
 import ProjectItem from './ProjectItem';
+import MagneticText from './MagneticText';
 import chatImage2 from '../assets/s0.jpg';
 import parchi1 from '../assets/parchi1.jpg';
 import parchi2 from '../assets/parchi2.jpg';
@@ -21,34 +22,54 @@ const Projects: React.FC = () => {
         <hr data-aos="zoom-in" />
       </center>
       <div className="project-section">
-        <h1 data-aos="fade-up">Projects</h1>
+        <h1 data-aos="fade-up">
+          <MagneticText>Projects</MagneticText>
+        </h1>
         <p data-aos="fade-up">
-          Here you will find some of the personal and clients projects that I
-          created with each project containing its own case study.
+          <MagneticText>
+            Here you will find some of the personal and clients projects that I
+            created with each project containing its own case study.
+          </MagneticText>
         </p>
 
         <ProjectItem
-          title="Noor Shop"
-          description="I am building an e-commerce app using React-Native. In this application, I am using Navigation Libraries, Redux, UI Libraries, Fetch API, Animations, Payment integration, and many more things. It's not completed yet but I am on it and will complete it in less than a week or two."
+          title={<MagneticText>Noor Shop</MagneticText>}
+          description={
+            <MagneticText>
+              I am building an e-commerce app using React-Native. In this application, I am using Navigation Libraries, Redux, UI Libraries, Fetch API, Animations, Payment integration, and many more things. It's not completed yet but I am on it and will complete it in less than a week or two.
+            </MagneticText>
+          }
           imageSrcs={[noorImage1, noorImage2, noorImage3]}
         />
 
         <ProjectItem
-          title="Food Recipe"
-          description="I have built a Food Recipe app using react native. In this application I integrated the API of themealdb.com. There are a total of three screens in this application welcome, home, and details. I have used react navigation for navigation and React Native Reanimated for the animation."
+          title={<MagneticText>Food Recipe</MagneticText>}
+          description={
+            <MagneticText>
+              I have built a Food Recipe app using react native. In this application I integrated the API of themealdb.com. There are a total of three screens in this application welcome, home, and details. I have used react navigation for navigation and React Native Reanimated for the animation.
+            </MagneticText>
+          }
           imageSrcs={[foodImage1, foodImage2, foodImage3]}
           reverse
         />
 
         <ProjectItem
-          title="Chatz"
-          description="It is a messaging app almost like WhatsApp. For the backend, I used Firebase to store user data and messages. I also used Google verification instead of phone numbers or you can also use email for signup. To store the data of users in their phone internal storage I used My SQL."
+          title={<MagneticText>Chatz</MagneticText>}
+          description={
+            <MagneticText>
+              It is a messaging app almost like WhatsApp. For the backend, I used Firebase to store user data and messages. I also used Google verification instead of phone numbers or you can also use email for signup. To store the data of users in their phone internal storage I used My SQL.
+            </MagneticText>
+          }
           imageSrcs={[chatImage1, chatImage2, chatImage3]}
         />
 
         <ProjectItem
-          title="Parchi"
-          description="This is a Point Of Sale application for different types of vendors. Developed on react-native the backend was developed in python django and the database used is postgresql. For state management I used Redux. It has bluetooth printer integration, camera integration, and many more."
+          title={<MagneticText>Parchi</MagneticText>}
+          description={
+            <MagneticText>
+              This is a Point Of Sale application for different types of vendors. Developed on react-native the backend was developed in python django and the database used is postgresql. For state management I used Redux. It has bluetooth printer integration, camera integration, and many more.
+            </MagneticText>
+          }
           imageSrcs={[parchi1, parchi2, parchi3, parchi4]}
           reverse
         />
