@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from 'react';
 import useImageCache from '../hooks/useImageCache';
-import MagneticText from './MagneticText';
 
 interface ProjectItemProps {
   title: React.ReactNode;
