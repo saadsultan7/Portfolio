@@ -77,7 +77,7 @@ const Navbar: React.FC = () => {
           </div>
 
           <ul className="nav-links logo-with-lin">
-            <li><a href="#Home" onClick={closeSidebar}>Home</a></li>
+            <li><a href="#" onClick={closeSidebar}>Home</a></li>
             <li><a href="#About" onClick={closeSidebar}>About</a></li>
             <li><a href="#Projects" onClick={closeSidebar}>Projects</a></li>
             <li><a href="#Contact" onClick={closeSidebar}>Contact</a></li>
