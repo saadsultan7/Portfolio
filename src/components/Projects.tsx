@@ -1,6 +1,5 @@
 import React from 'react';
 import ProjectItem from './ProjectItem';
-import MagneticText from './MagneticText';
 import chatImage2 from '../assets/s0.jpg';
 import parchi1 from '../assets/parchi1.jpg';
 import parchi2 from '../assets/parchi2.jpg';
