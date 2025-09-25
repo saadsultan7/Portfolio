@@ -316,7 +316,7 @@ body.dark .search-field i {
   transition: 1.3s ease;
   color: var(--main);
 }
-.home a {
+/* .home a {
   position: relative;
   background-color:rgb(24, 252, 169) ;
   border: 1px solid var(--text-color);
@@ -330,7 +330,7 @@ body.dark .search-field i {
   text-size-adjust: 30px  ;
   align-content: center;
   transition: all 0.3s ease;
-}
+} */
 
 .ripple {
   position: absolute;
@@ -342,30 +342,32 @@ body.dark .search-field i {
   border-radius:100%;
   transform: scale(0);
   opacity: 1;
-  transition: transform 1s ease, opacity 1s ease 0.5s; 
+  transition: transform 1s ease, opacity 1s ease-out 0.5s;   ; 
   z-index: 0;
   pointer-events: none;
   border: black;
   border-width: 9px;
   border-style: solid;
 }
-.home a:hover {
+/* .home a:hover {
   background-color:white ;
   color: black;
   border: black;
   border-width: 1px;
-  font-weight: 700;
-  border-style: solid;
-}
-.home a span :not(.ripple) {
-  position: relative;
-  z-index: 1;
+  font-weight: 700; 
+    border-style: solid;
+  }
+  .home a span :not(.ripple) {
+    position: relative;
+    z-index: 1;
+    
+  }
+  .home a:hover .ripple {
+    transform:  scale(5); 
+    transition: transform 1s ease, opacity 1s ease 0.5s; 
 
-}
-.home a:hover .ripple {
-  transform:  scale(5); 
   opacity: 0;
-}
+} */
 
 
 

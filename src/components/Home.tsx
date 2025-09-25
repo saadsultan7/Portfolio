@@ -1,7 +1,7 @@
 import React from 'react';
 import MagneticText from './MagneticText';
 import mainImage from '../assets/main.jpg';
-
+import { Button } from './ui/button';
 const Home: React.FC = () => {
   const text = "A dedicated React Native Developer with a year of hands-on experience. I'm here to help you bring your digital ideas to life and create responsive, user-friendly solutions.";
   
@@ -37,9 +37,10 @@ const Home: React.FC = () => {
         </h3>
             }
         <br /><br /><br />
-        <a href="#Projects" id="btn-project">
-          <span className='ripple'/>
-          <div>Projects</div>
+        <a href="#Projects">
+        <Button>
+        Projects
+        </Button>
         </a>
       </div>
       <center>
