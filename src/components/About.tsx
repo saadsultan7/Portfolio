@@ -5,7 +5,7 @@ const About: React.FC = () => {
   return (
     <section id="About">
       <div className="about-me" data-aos="fade-up" data-aos-delay="200" data-aos-offset="250">
-        <h2>About Me</h2>
+        <h1>About Me</h1>
         <p>
           Here you will find more information about me, what I do, and my
           current skills mostly in terms of programming and technology
@@ -14,15 +14,15 @@ const About: React.FC = () => {
 
       <div className="container-1">
         <div>
-          <h3 className="know-me" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-delay="200">
+          <h3 className="know-me"  style={window.innerWidth < 768 ? { textAlign: 'center' } : {}} data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-delay="100">
             Get to know me
           </h3>
-          <p className="know-me" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-delay="200">
+          <p className="know-me" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-delay="100">
             I'm a <b>Hybrid Developer</b> with a passion for crafting mobile
             applications that drive the success of products. You can explore
             some of my work in the Projects section.
           </p>
-          <p className="know-me" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-delay="200">
+          <p className="know-me" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-delay="10">
             I also enjoy sharing valuable content related to the knowledge I've
             gained throughout my journey in mobile app development, both in
             <b> Android</b> and <b>iOS</b>. Feel free to connect or follow me on
@@ -33,7 +33,7 @@ const About: React.FC = () => {
             , where I share insightful content on mobile app development and
             programming.
           </p>
-          <p className="know-me" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-delay="200">
+          <p className="know-me" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-delay="10">
             I'm actively seeking job opportunities where I can make meaningful
             contributions, continue learning, and advance my skills. If you have
             a great opportunity that aligns with my expertise and experience,
@@ -41,7 +41,7 @@ const About: React.FC = () => {
           </p>
         </div>
         <div>
-          <h3 className="my-skills" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-delay="300">
+          <h3 className="my-skills" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-delay="10">
             <MagneticText>My Skills</MagneticText>
           </h3>
           <div className="skills">
