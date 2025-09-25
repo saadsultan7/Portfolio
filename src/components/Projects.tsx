@@ -23,52 +23,44 @@ const Projects: React.FC = () => {
       </center>
       <div className="project-section">
         <h1 data-aos="fade-up">
-          <MagneticText>Projects</MagneticText>
+          Projects
         </h1>
         <p data-aos="fade-up">
-          <MagneticText>
+
             Here you will find some of the personal and clients projects that I
             created with each project containing its own case study.
-          </MagneticText>
         </p>
 
         <ProjectItem
-          title={<MagneticText>Noor Shop</MagneticText>}
+          title={"Noor Shop"}
           description={
-            <MagneticText>
-              I am building an e-commerce app using React-Native. In this application, I am using Navigation Libraries, Redux, UI Libraries, Fetch API, Animations, Payment integration, and many more things. It's not completed yet but I am on it and will complete it in less than a week or two.
-            </MagneticText>
-          }
+              "I am building an e-commerce app using React-Native. In this application, I am using Navigation Libraries, Redux, UI Libraries, Fetch API, Animations, Payment integration, and many more things. It's not completed yet but I am on it and will complete it in less than a week or two."
+           }
           imageSrcs={[noorImage1, noorImage2, noorImage3]}
         />
 
         <ProjectItem
-          title={<MagneticText>Food Recipe</MagneticText>}
+          title={"Food Recipe"}
           description={
-            <MagneticText>
-              I have built a Food Recipe app using react native. In this application I integrated the API of themealdb.com. There are a total of three screens in this application welcome, home, and details. I have used react navigation for navigation and React Native Reanimated for the animation.
-            </MagneticText>
+              "I have built a Food Recipe app using react native. In this application I integrated the API of themealdb.com. There are a total of three screens in this application welcome, home, and details. I have used react navigation for navigation and React Native Reanimated for the animation."
+            
           }
           imageSrcs={[foodImage1, foodImage2, foodImage3]}
           reverse
         />
 
         <ProjectItem
-          title={<MagneticText>Chatz</MagneticText>}
+          title={'Chatz'}
           description={
-            <MagneticText>
-              It is a messaging app almost like WhatsApp. For the backend, I used Firebase to store user data and messages. I also used Google verification instead of phone numbers or you can also use email for signup. To store the data of users in their phone internal storage I used My SQL.
-            </MagneticText>
+              "It is a messaging app almost like WhatsApp. For the backend, I used Firebase to store user data and messages. I also used Google verification instead of phone numbers or you can also use email for signup. To store the data of users in their phone internal storage I used My SQL."
           }
           imageSrcs={[chatImage1, chatImage2, chatImage3]}
         />
 
         <ProjectItem
-          title={<MagneticText>Parchi</MagneticText>}
+          title={"Parchi"}
           description={
-            <MagneticText>
-              This is a Point Of Sale application for different types of vendors. Developed on react-native the backend was developed in python django and the database used is postgresql. For state management I used Redux. It has bluetooth printer integration, camera integration, and many more.
-            </MagneticText>
+              "This is a Point Of Sale application for different types of vendors. Developed on react-native the backend was developed in python django and the database used is postgresql. For state management I used Redux. It has bluetooth printer integration, camera integration, and many more."
           }
           imageSrcs={[parchi1, parchi2, parchi3, parchi4]}
           reverse

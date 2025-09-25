@@ -735,12 +735,12 @@ hr {
   margin-bottom: 4rem;
   gap: 2rem;
   border-radius: 200px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* transition: transform 0.3s ease, box-shadow 0.3s ease; */
 }
 
 .project-item:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); */
 }
 
 .project-item.reverse {
