@@ -13,6 +13,7 @@ import chatImage1 from '../assets/s24.jpg';
 import foodImage1 from '../assets/food1.jpg';
 import foodImage2 from '../assets/food2.jpg';
 import foodImage3 from '../assets/food3.jpg';
+import { Button } from './ui/button';
 
 const Projects: React.FC = () => {
   return (
@@ -64,6 +65,7 @@ const Projects: React.FC = () => {
           imageSrcs={[parchi1, parchi2, parchi3, parchi4]}
           reverse
         />
+        <Button  > View More </Button>
       </div>
     </section>
   );

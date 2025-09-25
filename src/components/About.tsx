@@ -1,5 +1,5 @@
 import React from 'react';
-import MagneticText from './MagneticText';
+import MagneticText from '../utils/MagneticText';
 
 const About: React.FC = () => {
   return (

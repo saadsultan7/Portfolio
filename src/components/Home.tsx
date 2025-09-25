@@ -1,5 +1,5 @@
 import React from 'react';
-import MagneticText from './MagneticText';
+import MagneticText from '../utils/MagneticText';
 import mainImage from '../assets/main.jpg';
 import { Button } from './ui/button';
 const Home: React.FC = () => {
