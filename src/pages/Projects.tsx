@@ -15,10 +15,10 @@ import foodImage1 from '../assets/food1.jpg';
 import foodImage2 from '../assets/food2.jpg';
 import foodImage3 from '../assets/food3.jpg';
 // import { Button } from './ui/button';
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const Projects: React.FC = () => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
   return (
     <section id="Projects">
