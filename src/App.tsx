@@ -1,33 +1,31 @@
-import { useEffect, Suspense, lazy } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import "./App.css";
+import { useEffect, useState, Suspense, lazy } from "react";
 
-// Lazy imports
-const Navbar = lazy(() => import("./components/Navbar"));
-const Home = lazy(() => import("./components/Home"));
-const About = lazy(() => import("./components/About"));
-const Projects = lazy(() => import("./components/Projects"));
-const Contact = lazy(() => import("./components/Contact"));
+const LandingPage = lazy(() => import("./pages/LandingPage"));
+const Projects = lazy(() => import("./pages/Projects"));
 
 function App() {
-  useEffect(() => {
+    useEffect(() => {
     AOS.init({
       offset: 90,
-      duration: 1500,
+      duration: 1000,
       once: false,
       easing: "ease-in-out",
     });
   }, []);
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Navbar />
-      <Home />
-      <About />
-      <Projects />
-      <Contact />
-    </Suspense>
+    <Router>
+      <Suspense fallback={<></>}>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/projects" element={<Projects />} />
+        </Routes>
+      </Suspense>
+    </Router>
   );
 }
 

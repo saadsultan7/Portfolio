@@ -1,5 +1,6 @@
 import React from 'react';
-import ProjectItem from './ProjectItem';
+// import ProjectItem from '..components/ProjectItem';
+import ProjectItem from '../components/ProjectItem';
 import chatImage2 from '../assets/s0.jpg';
 import parchi1 from '../assets/parchi1.jpg';
 import parchi2 from '../assets/parchi2.jpg';
@@ -13,7 +14,7 @@ import chatImage1 from '../assets/s24.jpg';
 import foodImage1 from '../assets/food1.jpg';
 import foodImage2 from '../assets/food2.jpg';
 import foodImage3 from '../assets/food3.jpg';
-import { Button } from './ui/button';
+// import { Button } from './ui/button';
 import { useNavigate } from "react-router-dom";
 
 const Projects: React.FC = () => {
