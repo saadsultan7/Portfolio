@@ -18,23 +18,23 @@ const About: React.FC = () => {
             Get to know me
           </h3>
           <p className="know-me" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-delay="100">
-            I'm a <b>Hybrid Developer</b> with a passion for crafting mobile
+            I'm a <b>Software Developer</b> with a passion for crafting web and mobile
             applications that drive the success of products. You can explore
             some of my work in the Projects section.
           </p>
           <p className="know-me" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-delay="10">
             I also enjoy sharing valuable content related to the knowledge I've
-            gained throughout my journey in mobile app development, both in
-            <b> Android</b> and <b>iOS</b>. Feel free to connect or follow me on
+            gained throughout my journey in Web and Mobile App development, both in
+            <b>WEB APP</b> and <b>Mobile APP</b>. Feel free to connect or follow me on
             my
             <a href="https://www.linkedin.com/in/saad-sultan-25a323298/ ">
               <b> LinkedIn </b>
             </a>
-            , where I share insightful content on mobile app development and
+            , where I share insightful content on Web and Mobile app development and
             programming.
           </p>
           <p className="know-me" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-delay="10">
-            I'm actively seeking job opportunities where I can make meaningful
+            I'm actively working as a software developer, seeking opportunities where I can make meaningful
             contributions, continue learning, and advance my skills. If you have
             a great opportunity that aligns with my expertise and experience,
             please don't hesitate to reach out.

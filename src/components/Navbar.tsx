@@ -67,7 +67,7 @@ const Navbar: React.FC = () => {
       <div className="nav-bar">
         <i className="bx bx-menu sidebarOpen" onClick={toggleSidebar} ref={menuButtonRef}></i>
         <span className="logo navLogo logo-with-line">
-          <a href="#Home" onClick={closeSidebar}><img src={cocosignLogo} alt="Logo" /></a>
+          <a href="/#" onClick={closeSidebar}><img src={cocosignLogo} alt="Logo" /></a>
         </span>
 
         <div className="menu" ref={sidebarRef}>

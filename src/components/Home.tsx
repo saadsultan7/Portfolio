@@ -1,9 +1,9 @@
-import React from 'react';
+import React , {Fragment} from 'react';
 import MagneticText from '../utils/MagneticText';
 import mainImage from '../assets/main.jpg';
 import { Button } from './ui/button';
 const Home: React.FC = () => {
-  const text = "A dedicated React Native Developer with a year of hands-on experience. I'm here to help you bring your digital ideas to life and create responsive, user-friendly solutions.";
+  const text = "I’m a dedicated React and React Native Developer with over 2 years of hands-on experience. I help businesses and startups turn their ideas into powerful, responsive, and user-friendly mobile and web applications.";
   
   return (
     <section id="Home">
@@ -20,11 +20,11 @@ const Home: React.FC = () => {
         </h1>
         <br />
         {window.innerWidth < 768
-        ? (<h3>A dedicated React Native Developer with a year of hands-on experience. I'm here to help you bring your digital ideas to life and create responsive, user-friendly solutions.</h3>):
+        ? (<h3>{text}</h3  >):
         
         <h3>
           {text.split('').map((char, index) => (
-            <React.Fragment key={index}>
+            <Fragment key={index}>
             {char === ' ' ? (
               <span style={{ display: 'inline-block', marginRight: '10px' }}> </span>
               ) : (
@@ -32,7 +32,7 @@ const Home: React.FC = () => {
                   {char}
                 </MagneticText>
               )}
-            </React.Fragment>
+            </Fragment>
           ))}
         </h3>
             }
