@@ -1,14 +1,14 @@
 import React, { useState, useCallback } from 'react';
 import useImageCache from '../hooks/useImageCache';
 
-interface ProjectItemProps {
+interface WebItemProps {
   title: React.ReactNode;
   description: React.ReactNode;
   imageSrcs: string[];
   reverse?: boolean;
 }
 
-const ProjectItem: React.FC<ProjectItemProps> = ({ title, description, imageSrcs, reverse }) => {
+const WebItem: React.FC<WebItemProps> = ({ title, description, imageSrcs, reverse }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const cachedImages = useImageCache(imageSrcs);
 
@@ -21,7 +21,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ title, description, imageSrcs
   }, [cachedImages.length]);
 
   return (
-    <div className={`project-item ${reverse ? 'reverse' : ''}`}>
+    <div className={`project-item ${reverse ? 'reverse' : ''}` } style={{backgroundColor:"pink"}} >
       <div className="project-details">
         <h3 data-aos={reverse ? "fade-up-left" : "fade-up-right"}>{title}</h3>
         <p data-aos={reverse ? "fade-up-left" : "fade-up-right"}>{description}</p>
@@ -50,5 +50,5 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ title, description, imageSrcs
   );
 };
 
-export default ProjectItem;
+export default WebItem;
 

@@ -1,6 +1,6 @@
 import React , {Fragment} from 'react';
 import MagneticText from '../utils/MagneticText';
-import mainImage from '../assets/main.jpg';
+import mainImage from '../assets/main.png';
 import { Button } from './ui/button';
 const Home: React.FC = () => {
   const text = "I’m a dedicated React and React Native Developer with over 2 years of hands-on experience. I help businesses and startups turn their ideas into powerful, responsive, and user-friendly mobile and web applications.";

@@ -1,6 +1,6 @@
 import React from 'react';
 // import ProjectItem from '..components/ProjectItem';
-import ProjectItem from '../components/ProjectItem';
+import ProjectItem from '../components/MobileItem';
 import chatImage2 from '../assets/s0.jpg';
 import parchi1 from '../assets/parchi1.jpg';
 import parchi2 from '../assets/parchi2.jpg';
@@ -22,9 +22,6 @@ const Projects: React.FC = () => {
 
   return (
     <section id="Projects">
-      <center>
-        <hr data-aos="zoom-in" />
-      </center>
       <div className="project-section">
         <h1 data-aos="fade-up">
           Projects
