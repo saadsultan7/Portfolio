@@ -68,11 +68,10 @@ const Projects: React.FC = () => {
           imageSrcs={[parchi1, parchi2, parchi3, parchi4]}
           reverse
         />
-        <Button onClick={() => navigate("/Projects")} > View More </Button>
+        <Button onClick={() => navigate("/projects")} > View More </Button>
       </div>
     </section>
   );
 };
 
 export default Projects;
-

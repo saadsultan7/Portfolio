@@ -18,26 +18,19 @@ const About: React.FC = () => {
             Get to know me
           </h3>
           <p className="know-me" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-delay="100">
-            I'm a <b>Software Developer</b> with a passion for crafting web and mobile
-            applications that drive the success of products. You can explore
-            some of my work in the Projects section.
+            I’m a <b>Software Developer</b> driven by the challenge of crafting impactful web and mobile applications that solve real-world problems and elevate user experiences. Explore my Projects to see what I’ve been working on.
+
+           
+           
           </p>
           <p className="know-me" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-delay="10">
-            I also enjoy sharing valuable content related to the knowledge I've
-            gained throughout my journey in Web and Mobile App development, both in
-            <b>WEB APP</b> and <b>Mobile APP</b>. Feel free to connect or follow me on
-            my
-            <a href="https://www.linkedin.com/in/saad-sultan-25a323298/ ">
+         I actively share practical insights and lessons learned from my experience in <b>WEB APP</b> and <b>Mobile APP</b> Development. Connect with me on <a href="https://www.linkedin.com/in/saad-sultan-25a323298/ ">
               <b> LinkedIn </b>
-            </a>
-            , where I share insightful content on Web and Mobile app development and
-            programming.
+            </a>to stay updated on my latest posts about development and programming.
+            
           </p>
           <p className="know-me" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-delay="10">
-            I'm actively working as a software developer, seeking opportunities where I can make meaningful
-            contributions, continue learning, and advance my skills. If you have
-            a great opportunity that aligns with my expertise and experience,
-            please don't hesitate to reach out.
+            I’m currently working as a Software Developer, open to collaborations and opportunities that let me create value, sharpen my skills, and grow further. If you’re looking for someone who can contribute to your team’s success, let’s connect.
           </p>
         </div>
         <div>

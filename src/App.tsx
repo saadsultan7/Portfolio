@@ -3,9 +3,21 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import "./App.css";
 import { useEffect, Suspense, lazy } from "react";
+import { useLocation } from "react-router-dom";
+
+// Scroll to top component
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
 
 const LandingPage = lazy(() => import("./pages/LandingPage"));
-const Projects = lazy(() => import("./pages/Projects"));
+const ProjectsPage = lazy(() => import("./pages/ProjectsPage"));
 
 function App() {
     useEffect(() => {
@@ -19,10 +31,11 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <Suspense fallback={<></>}>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/projects" element={<Projects />} />
+          <Route path="/projects" element={<ProjectsPage />} />
         </Routes>
       </Suspense>
     </Router>

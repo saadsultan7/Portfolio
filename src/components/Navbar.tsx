@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import cocosignLogo from '../assets/cover.png';
 import 'boxicons/css/boxicons.min.css';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
@@ -8,6 +9,7 @@ const Navbar: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const savedMode = localStorage.getItem('mode');
@@ -62,25 +64,51 @@ const Navbar: React.FC = () => {
     setIsSidebarOpen(false);
   };
 
+  // Function to handle navigation to home page
+  const goToHome = () => {
+    navigate('/');
+    closeSidebar();
+  };
+
+  // Function to handle navigation to specific sections
+  const navigateToSection = (sectionId: string) => {
+    // If we're already on the home page and navigating to Home section, just scroll to top
+    if (sectionId === 'Home') {
+      navigate('/');
+      // The ScrollToTop component in App.tsx should handle scrolling to top
+    } else {
+      // For other sections, navigate to home and then scroll to section
+      navigate('/');
+      // Use setTimeout to ensure navigation completes before trying to scroll
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+    closeSidebar();
+  };
+
   return (
     <nav className={isSidebarOpen ? 'active' : ''}>
       <div className="nav-bar">
         <i className="bx bx-menu sidebarOpen" onClick={toggleSidebar} ref={menuButtonRef}></i>
         <span className="logo navLogo logo-with-line">
-          <a href="/#" onClick={closeSidebar}><img src={cocosignLogo} alt="Logo" /></a>
+          <a onClick={goToHome} style={{ cursor: 'pointer' }}><img src={cocosignLogo} alt="Logo" /></a>
         </span>
 
         <div className="menu" ref={sidebarRef}>
           <div className="logo-toggle">
-            <span className="logo logo-with-line"><a href="#Home" onClick={closeSidebar}><img src={cocosignLogo} alt="Logo" /></a></span>
-            {/* <i className="bx bx-x siderbarClose" onClick={toggleSidebar}></i> */}
+            <span className="logo logo-with-line"><a onClick={goToHome} style={{ cursor: 'pointer' }}><img src={cocosignLogo} alt="Logo" /></a></span>
+            {/* <i className="bx bx-x siderbarClose" onClick={toggleSidebar}></i> */ }
           </div>
 
           <ul className="nav-links logo-with-lin">
-            <li><a href="#" onClick={closeSidebar}>Home</a></li>
-            <li><a href="#About" onClick={closeSidebar}>About</a></li>
-            <li><a href="#Projects" onClick={closeSidebar}>Projects</a></li>
-            <li><a href="#Contact" onClick={closeSidebar}>Contact</a></li>
+            <li><a onClick={() => navigateToSection('Home')} style={{ cursor: 'pointer' }}>Home</a></li>
+            <li><a onClick={() => navigateToSection('About')} style={{ cursor: 'pointer' }}>About</a></li>
+            <li><a onClick={() => navigateToSection('Projects')} style={{ cursor: 'pointer' }}>Projects</a></li>
+            <li><a onClick={() => navigateToSection('Contact')} style={{ cursor: 'pointer' }}>Contact</a></li>
           </ul>
         </div>
 

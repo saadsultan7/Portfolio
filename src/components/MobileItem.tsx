@@ -1,14 +1,14 @@
 import React, { useState, useCallback } from 'react';
 import useImageCache from '../hooks/useImageCache';
 
-interface ProjectItemProps {
+interface MobileItemProps {
   title: React.ReactNode;
   description: React.ReactNode;
   imageSrcs: string[];
   reverse?: boolean;
 }
 
-const MobileItem: React.FC<ProjectItemProps> = ({ title, description, imageSrcs, reverse }) => {
+const MobileItem: React.FC<MobileItemProps> = ({ title, description, imageSrcs, reverse }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const cachedImages = useImageCache(imageSrcs);
 
