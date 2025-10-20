@@ -43,16 +43,8 @@ import hifz4 from '../assets/hifz4.jpg';
 import hifz5 from '../assets/hifz5.jpg';
 import hifz6 from '../assets/hifz6.jpg';
 import hifz7 from '../assets/hifz7.jpg';
-import { Button } from '../components/ui/button';
-import { useNavigate } from "react-router-dom";
 
 const ProjectsPage: React.FC = () => {
-    const navigate = useNavigate();
-
-    // Function to handle navigation to home page
-    const goToHome = () => {
-        navigate('/');
-    };
 
   return (
     <>

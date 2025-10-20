@@ -11,7 +11,7 @@ interface WebItemProps {
   link?: string; // Add link prop
 }
 
-const WebItem: React.FC<WebItemProps> = ({ title, description, imageSrcs, reverse, id, link }) => {
+const WebItem: React.FC<WebItemProps> = ({ title, description, imageSrcs, reverse, link }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0); 
   
   const nextImage = useCallback(() => {
