@@ -259,6 +259,8 @@ body.dark .search-field i {
   overflow: hidden;
   margin-bottom: 20px;
   display: flex;
+  align-items: center;
+  justify-content: center;
   transition: transform 0.5s ease;
 }
 .image-container-Web{
@@ -267,6 +269,8 @@ body.dark .search-field i {
   overflow: hidden;
   margin-bottom: 20px;
   display: flex;
+  align-items: center;
+  justify-content: center;
   transition: transform 0.5s ease;
 }
 .image-container.flipping {
@@ -796,13 +800,18 @@ hr {
 }
 
 .project-images img {
-  justify-self: center;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
+  height: 100%;
   border: 2px solid #00242b;
   object-fit: contain;
 }
 
+.project-images-Web img {
+  width: 100%;
+  height: 100%;
+  border: 2px solid #00242b;
+  object-fit: contain;
+}
 /* .responsive-image {
   width: 100%;
   height: 100%;
@@ -905,34 +914,20 @@ hr {
 
 @media (max-width: 480px) {
   .project-images {
-    padding:40px; /* Slightly reduce padding on very small screens */
-    /* width: 400px; */
+    padding: 20px; /* Slightly reduce padding on very small screens */
+    width: 100%;
+    max-width: 300px;
+    height: 250px;
   }
 
   .project-images-Web {
     width: 100%;
-    max-width: 320px;
-    height: 200px;
+    height: 250px;
   }
 
-  .image-container-Web {
+  .image-container, .image-container-Web {
     width: 100%;
-    height: 200px;
-  }
-
-  .slider-button-Web {
-    width: 30px;
-    height: 30px;
-    font-size: 14px;
-  }
-
-  .project-section {
-    padding: 2rem 1rem;
-  }
-
-  .project-item {
-    gap: 1rem;
-    margin-bottom: 2rem;
+    height: 100%;
   }
 }
 
@@ -946,19 +941,39 @@ hr {
   }
 
   .project-images {
-    width: 300px;
-    height: 250px; 
+    width: 100%;
+    max-width: 350px;
+    height: 300px; 
   }
 
   .project-images-Web {
     width: 100%;
-    max-width: 400px;
-    height: 250px;
+    max-width: 100%;
+    height: 300px;
+  }
+
+  .image-container {
+    width: 100%;
+    height: 100%;
   }
 
   .image-container-Web {
     width: 100%;
-    height: 250px;
+    height: 100%;
+  }
+
+  .responsive-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border: 2px solid #00242b;
+  }
+
+  .slider-button {
+    z-index: 100;
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
   }
 
   .slider-button-Web {
@@ -968,7 +983,8 @@ hr {
   }
 
   .slider-button-Web.prevs {
-    left: 5px;
+    /* left: -40px; */
+    /* right:100px; */
   }
 
   .slider-button-Web.next {
