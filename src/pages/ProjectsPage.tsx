@@ -49,7 +49,7 @@ const ProjectsPage: React.FC = () => {
   return (
     <>
     <Navbar />
-    <section style={{marginTop:40}} id="Projects">
+    <section style={{marginTop:60}} id="Projects">
       <div className="project-section">
         <h1 data-aos="fade-up">
           Projects
@@ -69,9 +69,9 @@ const ProjectsPage: React.FC = () => {
         />
         <WebItem
           id='hifz'
-          title={"HIFZ"}
+          title={"HIFZ Tracking "}
           description={
-            "This is a web application for a company called PAB. PAB is a company that provides services to restaurants. This application is used by the restaurant to manage their orders, manage their employees, manage their inventory, and many more. It is built using ReactJS, NodeJS, ExpressJS, MongoDB, and Redux."
+            "Hifz Tracking is an E-Learning web application developed on React (front-end) and node.js (backend). Its an app contains features like assignment , attendence , admin panel, voice transfer, messaging , notice board, use swr-3 for voice storage."
           }
           imageSrcs={[hifz ,hifz2, hifz3, hifz4, hifz5, hifz6, hifz7]}
           reverse
@@ -89,7 +89,7 @@ const ProjectsPage: React.FC = () => {
           id='fyp'
           title={"Final Year Project"}
           description={
-              "This is a web application for a company called PAB. PAB is a company that provides services to restaurants. This application is used by the restaurant to manage their orders, manage their employees, manage their inventory, and many more. It is built using ReactJS, NodeJS, ExpressJS, MongoDB, and Redux."
+              "Its my final year project developed for my university. Its developed in MERN Stack. It contains features like messaging using Web Socket, payment using stripe, Teacher Profile, Student Posts, Admin Panel, Advance Filter Mechanism to get best Teacher for You and for teacher to find the best Job."
           }
           imageSrcs={[fyp1,fyp2,fyp3,fyp4,fyp5,fyp6,fyp7]}
           reverse
@@ -125,7 +125,7 @@ const ProjectsPage: React.FC = () => {
           id='umrah'
           title={"Umrah Portal"}
           description={
-            "This is a web application for a company called PAB. PAB is a company that provides services to restaurants. This application is used by the restaurant to manage their orders, manage their employees, manage their inventory, and many more. It is built using ReactJS, NodeJS, ExpressJS, MongoDB, and Redux."
+            "I developed a complete SaaS-based web application for managing Umrah services. The platform allows travel agencies to manage customers, packages, and bookings efficiently. It includes features for handling visa processing, flight and hotel arrangements, payment tracking, and customer communication — all in one place. The system supports multi-user access with admin and agent roles, analytics dashboards, and automated notifications to improve workflow and customer experience."
           }
           imageSrcs={[Umrah, Umrah2, Umrah3, Umrah4, Umrah5, Umrah6]}
           reverse
