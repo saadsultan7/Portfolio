@@ -903,11 +903,11 @@ hr {
 } */
 .slider-button {
   position: absolute;
+  border: 1px solid #1effb8;
   top: 50%;
   transform: translateY(-50%);
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
-  border: none;
   border-radius: 50%;
   width: 4vh;
   height: 4vh;
@@ -944,10 +944,14 @@ hr {
 
 .slider-button-Web.prevs {
   left: 250px;
+  border: 1px solid #18ca92;
+
 }
 
 .slider-button-Web.next {
   right: 250px;
+  border: 1px solid #18ca92;
+
 }
 
 .slider-button.prev {
@@ -1004,10 +1008,12 @@ hr {
 
   .slider-button-Web.prevs {
     left: 100px;
+    border: 1px solid #18ca92;
   }
 
   .slider-button-Web.next {
     right: 100px;
+    border: 1px solid #18ca92;
   }
 }
 
