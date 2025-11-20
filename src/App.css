@@ -943,11 +943,11 @@ hr {
 
 
 .slider-button-Web.prevs {
-  left: 100px;
+  left: 250px;
 }
 
 .slider-button-Web.next {
-  right: 100px;
+  right: 250px;
 }
 
 .slider-button.prev {
@@ -1000,6 +1000,14 @@ hr {
   .image-container-Web {
     width: 100%;
     height: 100%;
+  }
+
+  .slider-button-Web.prevs {
+    left: 100px;
+  }
+
+  .slider-button-Web.next {
+    right: 100px;
   }
 }
 
