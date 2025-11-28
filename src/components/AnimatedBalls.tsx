@@ -30,9 +30,9 @@ const AnimatedBalls = () => {
         const resizeCanvas = () => {
             canvas.width = window.innerWidth;
             canvas.height = Math.max(
-                window.innerHeight + 500,
-                document.documentElement.scrollHeight + 500,
-                document.body.scrollHeight + 500
+                window.innerHeight ,
+                document.documentElement.scrollHeight ,
+                document.body.scrollHeight 
             );
         };
         resizeCanvas();
@@ -108,8 +108,8 @@ const AnimatedBalls = () => {
         // Periodically update canvas height for dynamic content (every 3 seconds)
         const newHeight = Math.max(
             window.innerHeight + 500,
-            document.documentElement.scrollHeight + 3000,
-            document.body.scrollHeight + 3000
+            document.documentElement.scrollHeight + 3900,
+            document.body.scrollHeight + 3900
         );
         // Only increase height, never decrease (prevents crashes)
         if (newHeight > canvas.height) {
