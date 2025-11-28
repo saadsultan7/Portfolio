@@ -1,0 +1,31 @@
+.animated-balls-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.8;
+}
+
+/* Ensure content stays above the canvas */
+body>#root {
+    position: relative;
+    z-index: 10;
+}
+
+/* Make sure all interactive elements stay on top */
+nav,
+button,
+a,
+input,
+img,
+.image-container {
+    position: relative;
+    z-index: 10;
+}
+
+/* Slightly reduce opacity in dark mode for better visibility */
+body.dark .animated-balls-canvas {
+    opacity: 0.6;
+}

@@ -4,6 +4,7 @@ import "aos/dist/aos.css";
 import "./App.css";
 import { useEffect, Suspense, lazy } from "react";
 import { useLocation } from "react-router-dom";
+import AnimatedBalls from "./components/AnimatedBalls";
 
 // Scroll to top component
 const ScrollToTop = () => {
@@ -20,7 +21,7 @@ const LandingPage = lazy(() => import("./pages/LandingPage"));
 const ProjectsPage = lazy(() => import("./pages/ProjectsPage"));
 
 function App() {
-    useEffect(() => {
+  useEffect(() => {
     AOS.init({
       offset: 90,
       duration: 1000,
@@ -31,6 +32,7 @@ function App() {
 
   return (
     <Router>
+      <AnimatedBalls />
       <ScrollToTop />
       <Suspense fallback={<></>}>
         <Routes>
