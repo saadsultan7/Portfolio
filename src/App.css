@@ -74,7 +74,7 @@ body {
 }
 
 nav {
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
   height: 90px;
@@ -295,7 +295,7 @@ body.dark .search-field i {
 }
 
 .image-container-Web {
-  height: 350px;
+  height: 310px;
   position: relative;
   overflow: hidden;
   margin-bottom: 20px;
@@ -342,6 +342,7 @@ body.dark .search-field i {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-position: center 10%;
   overflow: hidden;
   background-image: url("main.jpg");
   background-size: cover;
@@ -827,11 +828,14 @@ hr {
 
 .project-item {
   display: flex;
+  width: 80%;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 4rem;
   gap: 2rem;
-  border-radius: 200px;
+  /* border: 2px solid #00242b; */
+  padding: 10px;
+  border-radius: 20px;
   /* transition: transform 0.3s ease, box-shadow 0.3s ease; */
 }
 
@@ -943,23 +947,23 @@ hr {
 
 
 .slider-button-Web.prevs {
-  left: 250px;
+  left: 200px;
   border: 1px solid #18ca92;
 
 }
 
 .slider-button-Web.next {
-  right: 250px;
+  right: 200px;
   border: 1px solid #18ca92;
 
 }
 
 .slider-button.prev {
-  left: 100px;
+  left: 65px;
 }
 
 .slider-button.next {
-  right: 100px;
+  right: 70px;
 }
 
 @media (min-width: 1024px) {
@@ -968,7 +972,19 @@ hr {
   }
 
   .home {
-    margin-top: 20vh;
+    margin-top: 10vh;
+  }
+
+  .project-item {
+    display: flex;
+    /* width: 80%; */
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4rem;
+    gap: 2rem;
+    padding: 10px;
+    border-radius: 20px;
+    /* transition: transform 0.3s ease, box-shadow 0.3s ease; */
   }
 }
 
@@ -976,6 +992,18 @@ hr {
   .about-me p {
     width: 90%;
     word-spacing: 6px;
+  }
+
+  .project-item {
+    display: flex;
+    /* width: 80%; */
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4rem;
+    gap: 2rem;
+    padding: 10px;
+    border-radius: 20px;
+    /* transition: transform 0.3s ease, box-shadow 0.3s ease; */
   }
 
   .project-images {
@@ -1022,6 +1050,7 @@ hr {
   .project-item,
   .project-item.reverse {
     flex-direction: column;
+    width: 100%;
   }
 
   .project-images {

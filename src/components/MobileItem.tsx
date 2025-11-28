@@ -3,7 +3,7 @@ import useImageCache from '../hooks/useImageCache';
 
 interface MobileItemProps {
   title: React.ReactNode;
-  description: React.ReactNode;
+  description: string;
   imageSrcs: string[];
   reverse?: boolean;
 }
@@ -24,7 +24,13 @@ const MobileItem: React.FC<MobileItemProps> = ({ title, description, imageSrcs, 
     <div className={`project-item ${reverse ? 'reverse' : ''}` }>
       <div className="project-details">
         <h3 data-aos={reverse ? "fade-up-left" : "fade-up-right"}>{title}</h3>
-        <p data-aos={reverse ? "fade-up-left" : "fade-up-right"}>{description}</p>
+        <p data-aos={reverse ? "fade-up-left" : "fade-up-right"}>
+          {description.split('\n').filter(Boolean).map((line, idx) => (
+            <span key={idx} style={{ display: 'block', marginBottom: 6 }}>
+              • {line}
+            </span>
+          ))}
+        </p>
       </div>
       <div className="project-images" data-aos={reverse ? "fade-up-right" : "fade-up-left"}>
         <button className="slider-button prev" onClick={prevImage} aria-label="Previous image">&lt;</button>

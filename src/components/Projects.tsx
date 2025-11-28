@@ -17,7 +17,7 @@ import { Button } from './ui/button';
 import { useNavigate } from "react-router-dom";
 
 const Projects: React.FC = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <section id="Projects">
@@ -30,23 +30,45 @@ const Projects: React.FC = () => {
         </h1>
         <p data-aos="fade-up">
 
-            Here you will find some of the personal and clients projects that I
-            created with each project containing its own case study.
+          Here you will find some of the personal and clients projects that I
+          created with each project containing its own case study.
         </p>
 
         <MobileItem
           title={"Noor Shop"}
-          description={
-              "I am building an e-commerce app using React-Native. In this application, I am using Navigation Libraries, Redux, UI Libraries, Fetch API, Animations, Payment integration, and many more things. It's not completed yet but I am on it and will complete it in less than a week or two."
-           }
+          description={`Cross-platform mobile app (iOS & Android)
+          JWT authentication with secure token storage
+
+          Product browsing with search, filters, and category navigation
+
+          Product variations: size, color, quantity selection
+
+          Cart management and Stripe payment integration
+
+          Order history and push notifications
+
+          Frontend built solo with React Native CLI and Redux Toolkit
+
+          Optimized performance: FlatList pagination, minimal animations, backend WebP images`
+          }
           imageSrcs={[noorImage1, noorImage2, noorImage3]}
         />
 
         <MobileItem
           title={"Food Recipe"}
           description={
-              "I have built a Food Recipe app using react native. In this application I integrated the API of themealdb.com. There are a total of three screens in this application welcome, home, and details. I have used react navigation for navigation and React Native Reanimated for the animation."
-            
+            `Mobile app built with React Native (iOS & Android)
+
+Integrated TheMealDB API for recipes
+
+Screens: Welcome, Home, and Recipe Details
+
+Navigation handled with React Navigation
+
+Animations implemented using React Native Reanimated
+
+Lightweight and responsive UI for smooth performance`
+
           }
           imageSrcs={[foodImage1, foodImage2, foodImage3]}
           reverse
@@ -55,7 +77,15 @@ const Projects: React.FC = () => {
         <MobileItem
           title={'Chatz'}
           description={
-              "It is a messaging app almost like WhatsApp. For the backend, I used Firebase to store user data and messages. I also used Google verification instead of phone numbers or you can also use email for signup. To store the data of users in their phone internal storage I used My SQL."
+            `Mobile messaging app similar to WhatsApp
+
+Backend powered by Firebase for storing users and messages
+
+Signup via Google verification or email
+
+Local user data storage implemented with MySQL
+
+Built with React Native for smooth, cross-platform performance`
           }
           imageSrcs={[chatImage1, chatImage2, chatImage3]}
         />
@@ -63,7 +93,15 @@ const Projects: React.FC = () => {
         <MobileItem
           title={"Parchi"}
           description={
-              "This is a Point Of Sale application for different types of vendors. Developed on react-native the backend was developed in python django and the database used is postgresql. For state management I used Redux. It has bluetooth printer integration, camera integration, and many more."
+            `Point of Sale application for multiple types of vendors
+
+Frontend built with React Native; backend in Python Django; PostgreSQL database
+
+State management with Redux
+
+Features include Bluetooth printer integration, camera integration, and more
+
+Optimized for smooth performance on mobile devices`
           }
           imageSrcs={[parchi1, parchi2, parchi3, parchi4]}
           reverse

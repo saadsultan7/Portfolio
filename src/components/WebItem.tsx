@@ -4,11 +4,11 @@ import { Button } from './ui/button'; // Import the Button component
 
 interface WebItemProps {
   title: React.ReactNode;
-  description: React.ReactNode;
+  description: string;  // keep as string for splitting into bullets
   imageSrcs: string[];
   reverse?: boolean;
-  id: string; // Add unique identifier
-  link?: string; // Add link prop
+  id: string;
+  link?: string;
 }
 
 const WebItem: React.FC<WebItemProps> = ({ title, description, imageSrcs, reverse, link }) => {
@@ -22,24 +22,28 @@ const WebItem: React.FC<WebItemProps> = ({ title, description, imageSrcs, revers
     setCurrentImageIndex((prevIndex) => (prevIndex - 1 + imageSrcs.length) % imageSrcs.length);
   }, [imageSrcs.length]);
 
-  // Use original imageSrcs for mapping to avoid cache key issues in display
   const displayImages = useImageCache(imageSrcs);
 
   return (
-    <div className={`project-item ${reverse ? 'reverse' : ''}`} >
+    <div className={`project-item ${reverse ? 'reverse' : ''}`}>
       <div className="project-details">
         <h3 data-aos={reverse ? "fade-up-left" : "fade-up-right"}>{title}</h3>
-        <p data-aos={reverse ? "fade-up-left" : "fade-up-right"}>{description}</p>
+        <p data-aos={reverse ? "fade-up-left" : "fade-up-right"}>
+          {description.split('\n').filter(Boolean).map((line, idx) => (
+            <span key={idx} style={{ display: 'block', marginBottom: 6 }}>
+              • {line}
+            </span>
+          ))}
+        </p>
         {link && (
           <div style={{ marginTop: '10px' }}>
-            <Button
-              onClick={() => window.open(link, '_blank')}
-            >
+            <Button onClick={() => window.open(link, '_blank')}>
               Visit Site
             </Button>
           </div>
         )}
       </div>
+
       <div className="project-images-Web" data-aos={reverse ? "fade-up-right" : "fade-up-left"}>
         <button className="slider-button-Web prevs" onClick={prevImage} aria-label="Previous image">&lt;</button>
         <div className="image-container-Web">

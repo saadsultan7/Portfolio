@@ -62,8 +62,20 @@ const ProjectsPage: React.FC = () => {
 
         <MobileItem
           title={"Noor Shop"}
-          description={
-              "I am building an e-commerce app using React-Native. In this application, I am using Navigation Libraries, Redux, UI Libraries, Fetch API, Animations, Payment integration, and many more things. It's not completed yet but I am on it and will complete it in less than a week or two."
+          description={`Cross-platform mobile app (iOS & Android)
+          JWT authentication with secure token storage
+
+          Product browsing with search, filters, and category navigation
+
+          Product variations: size, color, quantity selection
+
+          Cart management and Stripe payment integration
+
+          Order history and push notifications
+
+          Frontend built solo with React Native CLI and Redux Toolkit
+
+          Optimized performance: FlatList pagination, minimal animations, backend WebP images`
            }
           imageSrcs={[noorImage1, noorImage2, noorImage3]}
         />
@@ -71,7 +83,17 @@ const ProjectsPage: React.FC = () => {
           id='hifz'
           title={"HIFZ Tracking "}
           description={
-            "Hifz Tracking is an E-Learning web application developed on React (front-end) and node.js (backend). Its an app contains features like assignment , attendence , admin panel, voice transfer, messaging , notice board, use swr-3 for voice storage."
+            `Web application for tracking Hifz progress and managing students
+
+Features include assignments, attendance, messaging, and notice board
+
+Voice transfer feature for submitting recitations (stored with SWR-3)
+
+Admin panel for managing students, teachers, and content
+
+Frontend built with React; backend provided in Node.js
+
+Real-time notifications and updates`
           }
           imageSrcs={[hifz ,hifz2, hifz3, hifz4, hifz5, hifz6, hifz7]}
           reverse
@@ -80,7 +102,17 @@ const ProjectsPage: React.FC = () => {
         <MobileItem
           title={"Food Recipe"}
           description={
-              "I have built a Food Recipe app using react native. In this application I integrated the API of themealdb.com. There are a total of three screens in this application welcome, home, and details. I have used react navigation for navigation and React Native Reanimated for the animation."
+             `Mobile app built with React Native (iOS & Android)
+
+Integrated TheMealDB API for recipes
+
+Screens: Welcome, Home, and Recipe Details
+
+Navigation handled with React Navigation
+
+Animations implemented using React Native Reanimated
+
+Lightweight and responsive UI for smooth performance`
             
           }
           imageSrcs={[foodImage1, foodImage2, foodImage3]}
@@ -89,7 +121,19 @@ const ProjectsPage: React.FC = () => {
           id='fyp'
           title={"Final Year Project"}
           description={
-              "Its my final year project developed for my university. Its developed in MERN Stack. It contains features like messaging using Web Socket, payment using stripe, Teacher Profile, Student Posts, Admin Panel, Advance Filter Mechanism to get best Teacher for You and for teacher to find the best Job."
+              `Final Year Project built on MERN Stack (MongoDB, Express, React, Node.js)
+
+Real-time messaging using WebSockets
+
+Stripe payment integration for services
+
+Teacher profiles and student posts
+
+Admin panel for managing users and content
+
+Advanced filter system: find the best teacher or job efficiently
+
+Designed for smooth UX and responsive performance`
           }
           imageSrcs={[fyp1,fyp2,fyp3,fyp4,fyp5,fyp6,fyp7]}
           reverse
@@ -98,7 +142,15 @@ const ProjectsPage: React.FC = () => {
         <MobileItem
           title={'Chatz'}
           description={
-              "It is a messaging app almost like WhatsApp. For the backend, I used Firebase to store user data and messages. I also used Google verification instead of phone numbers or you can also use email for signup. To store the data of users in their phone internal storage I used My SQL."
+              `Mobile messaging app similar to WhatsApp
+
+Backend powered by Firebase for storing users and messages
+
+Signup via Google verification or email
+
+Local user data storage implemented with MySQL
+
+Built with React Native for smooth, cross-platform performance`
           }
           imageSrcs={[chatImage1, chatImage2, chatImage3]}
         />
@@ -106,7 +158,19 @@ const ProjectsPage: React.FC = () => {
           id='pab'
           title={"PAB"}
           description={
-            "This is a web application for a company called PAB. PAB is a company that provides services to restaurants. This application is used by the restaurant to manage their orders, manage their employees, manage their inventory, and many more. It is built using ReactJS, NodeJS, ExpressJS, MongoDB, and Redux."
+`Platform for anesthesiology students to prepare for board exams
+
+Over 1,000+ questions with multiple question types and progress tracking
+
+Mock tests and performance analytics
+
+Subscription-based with free trial; payments via Zoho
+
+Authentication: JWT tokens, Google & Apple login
+
+Frontend state managed with Redux
+
+Responsive and intuitive UI for seamless exam preparation`
           }
           imageSrcs={[PAB,PAB1,PAB2,PAB3,PAB4]}
           reverse
@@ -115,7 +179,15 @@ const ProjectsPage: React.FC = () => {
         <MobileItem
           title={"Parchi"}
           description={
-              "This is a Point Of Sale application for different types of vendors. Developed on react-native the backend was developed in python django and the database used is postgresql. For state management I used Redux. It has bluetooth printer integration, camera integration, and many more."
+            `Point of Sale application for multiple types of vendors
+
+Frontend built with React Native; backend in Python Django; PostgreSQL database
+
+State management with Redux
+
+Features include Bluetooth printer integration, camera integration, and more
+
+Optimized for smooth performance on mobile devices`
           }
           imageSrcs={[parchi1, parchi2, parchi3, parchi4]}
           // reverse
@@ -125,7 +197,15 @@ const ProjectsPage: React.FC = () => {
           id='umrah'
           title={"Umrah Portal"}
           description={
-            "I developed a complete SaaS-based web application for managing Umrah services. The platform allows travel agencies to manage customers, packages, and bookings efficiently. It includes features for handling visa processing, flight and hotel arrangements, payment tracking, and customer communication — all in one place. The system supports multi-user access with admin and agent roles, analytics dashboards, and automated notifications to improve workflow and customer experience."
+            `SaaS platform for travel agencies to manage customers, packages, and bookings
+
+Handles visa processing, flight & hotel arrangements, payment tracking, and customer communication
+
+Multi-user roles: Admin and Agent
+
+Analytics dashboards and automated notifications for better workflow
+
+Built as a complete web application with a focus on efficiency and usability`
           }
           imageSrcs={[Umrah, Umrah2, Umrah3, Umrah4, Umrah5, Umrah6]}
           reverse
