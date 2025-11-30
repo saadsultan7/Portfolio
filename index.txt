@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My AI Assistant - Saad Sultan</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        /* Custom styles for a modern, rounded chat interface */
+        :root {
+            --primary-color: #4f46e5;
+            /* Indigo 600 */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            /* Light gray background */
+        }
+
+        .chat-container {
+            max-height: 80vh;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            padding: 1rem;
+        }
+
+        .message-bubble {
+            max-width: 80%;
+            padding: 0.75rem 1rem;
+            border-radius: 1.5rem;
+            line-height: 1.4;
+            margin-bottom: 0.75rem;
+        }
+
+        .user-message {
+            background-color: var(--primary-color);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 0.5rem;
+        }
+
+        .ai-message {
+            background-color: #ffffff;
+            color: #1f2937;
+            align-self: flex-start;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            border-bottom-left-radius: 0.5rem;
+        }
+
+        /* Custom scrollbar for aesthetics */
+        .chat-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-container::-webkit-scrollbar-thumb {
+            background-color: #d1d5db;
+            border-radius: 3px;
+        }
+
+        .chat-container::-webkit-scrollbar-track {
+            background: #f9fafb;
+        }
+
+        /* Markdown Styles within Message Bubble */
+        .message-bubble ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .message-bubble ol {
+            list-style-type: decimal;
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .message-bubble li {
+            margin-bottom: 0.25rem;
+        }
+
+        .message-bubble p {
+            margin-bottom: 0.5rem;
+        }
+
+        .message-bubble p:last-child {
+            margin-bottom: 0;
+        }
+
+        .message-bubble strong {
+            font-weight: 600;
+        }
+
+        .message-bubble a {
+            color: #4f46e5;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center min-h-screen">
+    <div class="bg-white shadow-2xl rounded-xl w-full max-w-4xl flex flex-col h-[95vh] sm:h-[90vh]">
+        <!-- Header -->
+        <header class="p-4 border-b border-gray-100 flex items-center rounded-t-xl bg-indigo-500 text-white">
+            <div
+                class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-indigo-500 font-bold text-xl mr-3">
+                A</div>
+            <div>
+                <h1 class="text-xl font-bold">Your Personal AI Assistant</h1>
+                <p class="text-sm opacity-90">I can answer questions about my bio and general knowledge automatically.
+                </p>
+            </div>
+            <button onclick="clearChat()"
+                class="ml-auto bg-white text-indigo-600 px-3 py-1 rounded-lg text-sm hover:bg-indigo-50 transition">Clear
+                Chat</button>
+        </header>
+
+        <!-- Chat Container -->
+        <main id="chat-messages" class="chat-container flex flex-col flex-grow">
+            <!-- Initial Greeting Message -->
+            <div class="flex justify-start">
+                <div class="message-bubble ai-message">
+                    Hello! I am the AI assistant for Saad Sultan.
+                </div>
+            </div>
+            <!-- Messages will be injected here -->
+        </main>
+
+        <!-- Input Area -->
+        <div class="p-4 border-t border-gray-100">
+            <div class="flex space-x-3">
+                <input type="text" id="user-input" placeholder="Type your question here..."
+                    class="flex-grow p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition duration-150"
+                    onkeydown="if(event.key === 'Enter') sendMessage()">
+                <button onclick="sendMessage()" id="send-button"
+                    class="bg-indigo-600 text-white font-semibold py-3 px-6 rounded-xl hover:bg-indigo-700 transition duration-300 disabled:opacity-50">
+                    Send
+                </button>
+            </div>
+            <p id="loading-indicator" class="text-sm text-center text-indigo-600 mt-2 hidden">
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-indigo-500 inline-block"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                    </path>
+                </svg>
+                Thinking...
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. CONFIGURATION ---
+
+        function isLocalStorageAvailable() {
+            try {
+                const test = '__localStorage_test__';
+                localStorage.setItem(test, test);
+                localStorage.removeItem(test);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        // =======================================================================
+        // !!! IMPORTANT: LOCAL SETUP !!!
+        // When running this file on your local machine, you MUST replace the 
+        // empty string below with your actual Gemini API Key.
+        // =======================================================================
+        const apiKey = "AIzaSyDbR7n8czcQfwIRq00uaiXiGu952TgV6pM"; // <-- INSERT YOUR KEY HERE FOR LOCAL RUNS
+
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+        const MAX_HISTORY = 50;
+
+        const knowledgeBase = {
+            name: "Saad Sultan",
+            bio: "I’m a dedicated React and React Native Developer with over years of hands-on experience. I help businesses and startups turn their ideas into powerful, responsive, and user-friendly mobile and web applications.I’m a Software Developer driven by the challenge of crafting impactful web and mobile applications that solve real-world problems and elevate user experiences. Explore my Projects to see what I’ve been working on.I actively share practical insights and lessons learned from my experience in WEB APP and Mobile APP Development. Connect with me on LinkedIn to stay updated on my latest posts about development and programming.I’m currently working as a Software Developer, open to collaborations and opportunities that let me create value, sharpen my skills, and grow further. If you’re looking for someone who can contribute to your team’s success, let’s connect.",
+            contact: {
+                email: "saadsultan4004@gmail.com",
+                linkedin: "https://www.linkedin.com/in/saad-sultan-25a323298/",
+                github: "https://github.com/saadsultan7",
+                twitter: "https://x.com/itachi78900?s=08",
+                facebook: "https://www.facebook.com/SaadSultan.50000MW?mibextid=ZbWKwL",
+                portfolio: "https://portfolio-ecru-two-36.vercel.app/"
+            },
+            skills: [
+                "Frontend/Mobile: React, React Native, JavaScript, Redux, React Navigation, React Native Reanimated, Android Studio, TypeScript",
+                "Backend: Python, Django, Node.js, Express.js, C++",
+                "Databases: PostgreSQL, MySQL, MongoDB, Firebase",
+                "Tools/DevOps: Git, GitHub"
+            ],
+            projects: [
+                {
+                    title: "Noor Shop",
+                    type: "Mobile App",
+                    techStack: ["React Native", "Redux", "Navigation Libraries", "UI Libraries", "Fetch API", "Animations"],
+                    description: "Cross-platform mobile app (iOS & Android) JWT authentication with secure token storage Product browsing with search, filters, and category navigation Product variations: size, color, quantity selection Cart management and Stripe payment integration Order history and push notifications Frontend built solo with React Native CLI and Redux Toolkit Optimized performance: FlatList pagination, minimal animations, backend WebP images",
+                    status: "In Progress"
+                },
+                {
+                    title: "Food Recipe",
+                    type: "Mobile App",
+                    techStack: ["React Native", "React Navigation", "React Native Reanimated", "TheMealDB API"],
+                    description: " Mobile app built with React Native (iOS & Android) Integrated TheMealDB API for recipes Screens: Welcome, Home, and Recipe Details Navigation handled with React Navigation Animations implemented using React Native Reanimated Lightweight and responsive UI for smooth performance",
+                },
+                {
+                    title: "Chatz",
+                    type: "Mobile App",
+                    techStack: ["React Native", "Firebase", "MySQL", "Google Auth"],
+                    description: " Mobile messaging app similar to WhatsApp Backend powered by Firebase for storing users and messages Signup via Google verification or email Local user data storage implemented with MySQL Built with React Native for smooth, cross-platform performance",
+                },
+                {
+                    title: "Parchi",
+                    type: "Mobile App",
+                    techStack: ["React Native", "Python", "Django", "PostgreSQL", "Redux"],
+                    description: "Point of Sale application for multiple types of vendors Frontend built with React Native; backend in Python Django; PostgreSQL database State management with Redux Features include Bluetooth printer integration, camera integration, and more Optimized for smooth performance on mobile devices",
+                },
+                {
+                    title: "HIFZ Tracking",
+                    type: "Web App",
+                    techStack: ["React", "Node.js", "SWR-3"],
+                    description: "Web application for tracking Hifz progress and managing students Features include assignments, attendance, messaging, and notice board Voice transfer feature for submitting recitations (stored with SWR-3) Admin panel for managing students, teachers, and content Frontend built with React; backend provided in Node.js Real-time notifications and updates",
+                    link: "https://hifztrackerui.onrender.com/"
+                },
+                {
+                    title: "Final Year Project",
+                    type: "Web App",
+                    techStack: ["MERN Stack (MongoDB, Express, React, Node)", "Web Socket", "Stripe"],
+                    description: "Final Year Project built on MERN Stack (MongoDB, Express, React, Node.js) Real-time messaging using WebSockets Stripe payment integration for services Teacher profiles and student posts Admin panel for managing users and content Advanced filter system: find the best teacher or job efficiently Designed for smooth UX and responsive performance"
+                },
+                {
+                    title: "PAB",
+                    type: "Web App",
+                    techStack: ["ReactJS", "NodeJS", "ExpressJS", "MongoDB", "Redux"],
+                    description: "Platform for anesthesiology students to prepare for board exams Over 1,000+ questions with multiple question types and progress tracking Mock tests and performance analytics Subscription-based with free trial; payments via Zoho Authentication: JWT tokens, Google & Apple login Frontend state managed with Redux Responsive and intuitive UI for seamless exam preparation",
+                    link: "https://www.pabsmartprep.com/"
+                },
+                {
+                    title: "Umrah Portal",
+                    type: "Web App",
+                    techStack: ["SaaS", "Web Technologies"],
+                    description: "SaaS platform for travel agencies to manage customers, packages, and bookings Handles visa processing, flight & hotel arrangements, payment tracking, and customer communication Multi-user roles: Admin and Agent Analytics dashboards and automated notifications for better workflow Built as a complete web application with a focus on efficiency and usability",
+                    link: "https://www.group2travel.com/"
+                }
+            ],
+            experience: [
+                {
+                    title: "Freelancer as a Mobile App Developer",
+                    company: "Upwork",
+                    startDate: "June 2023",
+                    endDate: "May 2024",
+                    description: "Started my journey as a freelancer, delivering various mobile and web solutions for diverse clients.",
+                    projects: "Partner App, Ecommerce, Chatz, Food Recipe"
+                },
+                {
+                    title: "Intern React & React Native Dev",
+                    company: "MAAQ Services",
+                    startDate: "June 2024",
+                    endDate: "Jan 2025",
+                    description: "Gained hands-on experience in a professional environment, contributing to key projects and enhancing skills in React and react native ecosystem.",
+                    projects: "PABSmart, Parchi"
+                },
+                {
+                    title: "React & React Native Dev",
+                    company: "Saudi Arabia Software House",
+                    startDate: "Feb 2025",
+                    endDate: "Present",
+                    description: "Working remotely as a full-time developer, focusing on building scalable web and mobile applications for international clients.",
+                    projects: "Hifz Tracking, Umrah Portal"
+                }
+            ]
+        };
+
+        // This System Instruction dictates the AI's persona and rules. 
+        const systemPrompt = `You are a helpful, friendly, and professional AI Assistant for ${knowledgeBase.name}.
+        Your primary goal is to answer all user questions. You must first check the provided JSON knowledge base for questions about ${knowledgeBase.name} (e.g., projects, skills, bio). Use the Google Search tool only when the query is about general knowledge (e.g., current events, facts, definitions, or anything outside of ${knowledgeBase.name}'s professional life).
+        Prioritize the Knowledge Base for personal questions and Search for general questions.
+        If the answer is not available in the knowledge base, and Search is needed, use the search tool.
+        Knowledge Base: ${JSON.stringify(knowledgeBase)}`;
+
+        // --- 2. CHAT LOGIC ---
+
+        const chatMessages = document.getElementById('chat-messages');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+        const loadingIndicator = document.getElementById('loading-indicator');
+
+        // Removed searchToggle and searchStatus elements and associated logic
+
+        /**
+         * Clears the chat history from local storage and resets the UI.
+         */
+        function clearChat() {
+            if (confirm('Are you sure you want to clear the chat history?')) {
+                localStorage.removeItem('chatHistory');
+                chatMessages.innerHTML = `
+                <div class="flex justify-start">
+                    <div class="message-bubble ai-message">
+                        Hello! I am the AI assistant for Saad Sultan.
+                    </div>
+                </div>
+                `;
+                console.log('Chat history cleared');
+            }
+        }
+
+        /**
+         * Adds a message bubble to the chat interface.
+         * @param {string} text - The message content.
+         * @param {string} sender - 'user' or 'ai'.
+         */
+        function addMessage(text, sender) {
+            const messageWrapper = document.createElement('div');
+            messageWrapper.className = `flex ${sender === 'user' ? 'justify-end' : 'justify-start'}`;
+
+            const messageBubble = document.createElement('div');
+            messageBubble.className = `message-bubble ${sender === 'user' ? 'user-message' : 'ai-message'}`;
+
+            // Parse Markdown
+            messageBubble.innerHTML = marked.parse(text);
+
+            messageWrapper.appendChild(messageBubble);
+            chatMessages.appendChild(messageWrapper);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Save to localStorage
+            saveMessageToHistory(text, sender);
+        }
+
+        // Updated saveMessageToHistory with error handling
+        function saveMessageToHistory(text, sender) {
+            if (!isLocalStorageAvailable()) {
+                console.warn('localStorage not available. Chat history will not be saved.');
+                return;
+            }
+
+            try {
+                const history = JSON.parse(localStorage.getItem('chatHistory') || '[]');
+                history.push({ text, sender, timestamp: Date.now() });
+
+                if (history.length > MAX_HISTORY) history.shift();
+
+                localStorage.setItem('chatHistory', JSON.stringify(history));
+            } catch (e) {
+                console.error('Failed to save message:', e);
+                // Optionally show user a warning
+                if (e.name === 'QuotaExceededError') {
+                    alert('Storage limit reached. Clearing old messages...');
+                    localStorage.clear();
+                }
+            }
+        }
+
+        // Updated loadChatHistory with error handling
+        function loadChatHistory() {
+            if (!isLocalStorageAvailable()) {
+                console.warn('localStorage not available. Cannot load chat history.');
+                return;
+            }
+
+            try {
+                const history = JSON.parse(localStorage.getItem('chatHistory') || '[]');
+                history.forEach(msg => {
+                    const messageWrapper = document.createElement('div');
+                    messageWrapper.className = `flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`;
+
+                    const messageBubble = document.createElement('div');
+                    messageBubble.className = `message-bubble ${msg.sender === 'user' ? 'user-message' : 'ai-message'}`;
+
+                    // Parse Markdown
+                    messageBubble.innerHTML = marked.parse(msg.text);
+
+                    messageWrapper.appendChild(messageBubble);
+                    chatMessages.appendChild(messageWrapper);
+                });
+            } catch (e) {
+                console.error('Failed to load chat history:', e);
+            }
+        }
+
+        /**
+         * Retries the fetch request with exponential backoff.
+         * @param {function} fn - The function to retry (e.g., fetch call).
+         * @param {number} retriesLeft - Number of retries remaining.
+         * @param {number} delay - Current delay in milliseconds.
+         */
+        async function retryFetch(fn, retriesLeft = 3, delay = 1000) {
+            try {
+                return await fn();
+            } catch (error) {
+                if (retriesLeft === 0) {
+                    throw error;
+                }
+                // console.log(`Retry attempt in ${delay}ms. Retries left: ${retriesLeft}`);
+                await new Promise(resolve => setTimeout(resolve, delay));
+                return retryFetch(fn, retriesLeft - 1, delay * 2);
+            }
+        }
+
+        /**
+         * Sends the user message to the Gemini API with conversation context
+         */
+        async function sendMessage() {
+            if (!apiKey) {
+                addMessage("API Key Error: Please insert your Gemini API key in the 'apiKey' variable within the script for local execution.", 'ai');
+                console.error("API Key not set. Cannot proceed with API call.");
+                return;
+            }
+
+            const userText = userInput.value.trim();
+            if (!userText) return;
+
+            // 1. Display user message
+            addMessage(userText, 'user');
+            userInput.value = '';
+
+            // 2. Set loading state
+            sendButton.disabled = true;
+            loadingIndicator.classList.remove('hidden');
+
+            // 3. Build conversation history for context (CRITICAL ADDITION)
+            const history = JSON.parse(localStorage.getItem('chatHistory') || '[]');
+            const recentHistory = history.slice(-10); // Last 10 messages for context
+
+            // Build contents array with conversation history
+            const contents = [];
+
+            // Add previous messages as context
+            recentHistory.forEach(msg => {
+                if (msg.sender === 'user') {
+                    contents.push({
+                        role: 'user',
+                        parts: [{ text: msg.text }]
+                    });
+                } else if (msg.sender === 'ai') {
+                    // Remove HTML tags and sources from AI messages for cleaner context
+                    const cleanText = msg.text.replace(/<[^>]*>/g, '').replace(/Sources:.*$/s, '').trim();
+                    if (cleanText) {
+                        contents.push({
+                            role: 'model',
+                            parts: [{ text: cleanText }]
+                        });
+                    }
+                }
+            });
+
+            // Add current user message
+            contents.push({
+                role: 'user',
+                parts: [{ text: userText }]
+            });
+
+            // 4. Create payload with conversation history
+            const payload = {
+                contents: contents,
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+                tools: [{ "google_search": {} }],
+            };
+
+            const fetchFn = () => fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            try {
+                const response = await retryFetch(fetchFn);
+                if (!response.ok) {
+                    throw new Error(`API call failed with status: ${response.status}`);
+                }
+
+                const result = await response.json();
+
+                // Extract generated text
+                let aiResponse = result.candidates?.[0]?.content?.parts?.[0]?.text || "I apologize, I was unable to process that request.";
+
+                // Extract and format grounding sources if used
+                let sourcesHtml = '';
+                const groundingMetadata = result.candidates?.[0]?.groundingMetadata;
+                const sources = groundingMetadata?.groundingAttributions
+                    ?.map(attr => ({
+                        uri: attr.web?.uri,
+                        title: attr.web?.title,
+                    }))
+                    .filter(source => source.uri && source.title);
+
+                if (sources && sources.length > 0) {
+                    sourcesHtml += '<hr class="my-2 border-gray-200"><div class="text-xs text-gray-500 font-medium mt-2">Sources:</div><ul class="list-disc list-inside text-xs text-gray-500">';
+                    sources.forEach((source, index) => {
+                        if (index < 3) {
+                            sourcesHtml += `<li><a href="${source.uri}" target="_blank" class="hover:text-indigo-600 truncate inline-block max-w-full">${source.title || source.uri}</a></li>`;
+                        }
+                    });
+                    sourcesHtml += '</ul>';
+                }
+
+                addMessage(aiResponse + sourcesHtml, 'ai');
+
+            } catch (error) {
+                console.error("Error fetching AI response:", error);
+                let errorMessage = "I'm sorry, an unknown error occurred while trying to connect.";
+                if (error.message.includes("403")) {
+                    errorMessage = "Connection Error (403 Forbidden): The API key is likely missing or invalid. Please check the 'apiKey' variable in the script.";
+                }
+                addMessage(errorMessage, 'ai');
+            } finally {
+                sendButton.disabled = false;
+                loadingIndicator.classList.add('hidden');
+            }
+        }
+
+        // Initialize the app on page load
+        window.onload = () => {
+            loadChatHistory();
+            console.log("Personal AI Assistant loaded. Automatic search enabled.");
+        };
+    </script>
+</body>
+
+</html>

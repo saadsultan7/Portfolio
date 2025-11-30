@@ -5,6 +5,7 @@ import "./App.css";
 import { useEffect, Suspense, lazy } from "react";
 import { useLocation } from "react-router-dom";
 import AnimatedBalls from "./components/AnimatedBalls";
+import ChatBot from "./components/ChatBot";
 
 // Scroll to top component
 const ScrollToTop = () => {
@@ -33,6 +34,7 @@ function App() {
   return (
     <Router>
       <AnimatedBalls />
+      <ChatBot />
       <ScrollToTop />
       <Suspense fallback={<></>}>
         <Routes>
