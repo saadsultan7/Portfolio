@@ -106,9 +106,16 @@ const API_URL = '/api/chat';
 const MAX_HISTORY = 50;
 
 const systemPrompt = `You are a helpful, friendly, and professional AI Assistant for ${knowledgeBase.name}.
-Your primary goal is to answer all user questions. You must first check the provided JSON knowledge base for questions about ${knowledgeBase.name} (e.g., projects, skills, bio). Use the Google Search tool only when the query is about general knowledge (e.g., current events, facts, definitions, or anything outside of ${knowledgeBase.name}'s professional life).
-Prioritize the Knowledge Base for personal questions and Search for general questions.
-If the answer is not available in the knowledge base, and Search is needed, use the search tool.
+
+Your role is to answer questions about Saad Sultan using the knowledge base provided below. Be conversational, helpful, and informative.
+
+When users ask about Saad (in any variation like "saad", "Saad", "tell me about saad", etc.), provide relevant information from the knowledge base.
+
+For questions about Saad's work, projects, skills, or experience - use ONLY the knowledge base.
+For general knowledge questions unrelated to Saad - you can use the Google Search tool.
+
+Always be friendly and provide complete, helpful answers. If asked generally about Saad, give a brief overview of who he is, what he does, and his key skills.
+
 Knowledge Base: ${JSON.stringify(knowledgeBase)}`;
 
 interface Message {
@@ -190,19 +197,28 @@ export default function ChatBot() {
     const sendMessage = async () => {
         if (!inputValue.trim() || isLoading) return;
 
+        // Normalize the input - capitalize "saad" to "Saad" to avoid safety filter issues
+        let normalizedInput = inputValue;
+        const saadPattern = /\b(saad)\b/gi;
+        normalizedInput = normalizedInput.replace(saadPattern, 'Saad');
+
         const userMessage: Message = {
-            text: inputValue,
+            text: inputValue, // Show original input to user
             sender: 'user',
             timestamp: Date.now()
         };
 
+        const currentInput = normalizedInput; // Use normalized input for API
         setMessages(prev => [...prev, userMessage]);
         setInputValue('');
         setIsLoading(true);
 
         try {
-            // Build conversation history
-            const recentHistory = messages.slice(-10);
+            // Build conversation history - only include actual conversation, not the greeting
+            const recentHistory = messages.slice(-10).filter(msg => 
+                msg.text !== "Hello! I am the AI assistant for Saad Sultan. How can I help you today?"
+            );
+            
             const contents = [];
 
             recentHistory.forEach(msg => {
@@ -213,7 +229,7 @@ export default function ChatBot() {
                     });
                 } else if (msg.sender === 'ai') {
                     const cleanText = msg.text.replace(/<[^>]*>/g, '').replace(/Sources:.*$/s, '').trim();
-                    if (cleanText && cleanText !== "Hello! I am the AI assistant for Saad Sultan. How can I help you today?") {
+                    if (cleanText) {
                         contents.push({
                             role: 'model',
                             parts: [{ text: cleanText }]
@@ -222,16 +238,41 @@ export default function ChatBot() {
                 }
             });
 
+            // Add current user message
             contents.push({
                 role: 'user',
-                parts: [{ text: inputValue }]
+                parts: [{ text: currentInput }]
             });
 
             const payload = {
                 contents: contents,
                 systemInstruction: { parts: [{ text: systemPrompt }] },
                 tools: [{ "google_search": {} }],
+                safetySettings: [
+                    {
+                        category: "HARM_CATEGORY_HARASSMENT",
+                        threshold: "BLOCK_NONE"
+                    },
+                    {
+                        category: "HARM_CATEGORY_HATE_SPEECH",
+                        threshold: "BLOCK_NONE"
+                    },
+                    {
+                        category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+                        threshold: "BLOCK_NONE"
+                    },
+                    {
+                        category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+                        threshold: "BLOCK_NONE"
+                    }
+                ]
             };
+
+            console.log('Sending request with payload:', {
+                contentsLength: contents.length,
+                userMessage: currentInput,
+                hasSystemInstruction: !!payload.systemInstruction
+            });
 
             const response = await fetch(API_URL, {
                 method: 'POST',
@@ -239,12 +280,47 @@ export default function ChatBot() {
                 body: JSON.stringify(payload)
             });
 
+            console.log('Response status:', response.status, response.statusText);
+
             if (!response.ok) {
+                const errorText = await response.text();
+                console.error('API Error Response:', {
+                    status: response.status,
+                    statusText: response.statusText,
+                    body: errorText
+                });
                 throw new Error(`API call failed with status: ${response.status}`);
             }
 
             const result = await response.json();
-            let aiResponse = result.candidates?.[0]?.content?.parts?.[0]?.text || "I apologize, I was unable to process that request.";
+            console.log('Full API Response:', JSON.stringify(result, null, 2));
+            
+            // Check for blocked content or safety issues
+            if (result.promptFeedback?.blockReason) {
+                console.error('Content blocked:', result.promptFeedback);
+                throw new Error('Content was blocked by safety filters');
+            }
+            
+            // Better error handling - check if we got a valid response
+            const candidate = result.candidates?.[0];
+            
+            // Check if response was blocked
+            if (candidate?.finishReason === 'SAFETY' || candidate?.finishReason === 'RECITATION') {
+                console.error('Response blocked:', candidate.finishReason, candidate.safetyRatings);
+                throw new Error('Response was blocked by safety filters');
+            }
+            
+            if (!candidate || !candidate.content || !candidate.content.parts || candidate.content.parts.length === 0) {
+                console.error('Invalid API response structure:', result);
+                throw new Error('Invalid response from AI');
+            }
+
+            let aiResponse = candidate.content.parts[0].text;
+            
+            if (!aiResponse || aiResponse.trim() === '') {
+                console.error('Empty response from AI');
+                aiResponse = "I'm here to help! Could you please rephrase your question?";
+            }
 
             // Extract sources if available
             const groundingMetadata = result.candidates?.[0]?.groundingMetadata;
@@ -271,6 +347,13 @@ export default function ChatBot() {
             setMessages(prev => [...prev, aiMessage]);
         } catch (error) {
             console.error('Error fetching AI response:', error);
+            console.error('Error details:', {
+                message: error instanceof Error ? error.message : 'Unknown error',
+                stack: error instanceof Error ? error.stack : undefined,
+                type: typeof error,
+                error: error
+            });
+            
             const errorMessage: Message = {
                 text: "I'm sorry, I encountered an error while processing your request. Please try again.",
                 sender: 'ai',
@@ -283,7 +366,12 @@ export default function ChatBot() {
     };
 
     const clearChat = () => {
-        localStorage.removeItem('chatHistory');
+        try {
+            localStorage.removeItem('chatHistory');
+            console.log('Chat history cleared');
+        } catch (e) {
+            console.error('Failed to clear chat history:', e);
+        }
         setMessages([
             {
                 text: "Hello! I am the AI assistant for Saad Sultan. How can I help you today?",
@@ -293,7 +381,7 @@ export default function ChatBot() {
         ]);
     };
 
-    const handleKeyPress = (e: React.KeyboardEvent) => {
+    const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
             sendMessage();
@@ -365,7 +453,7 @@ export default function ChatBot() {
                             type="text"
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
-                            onKeyPress={handleKeyPress}
+                            onKeyDown={handleKeyDown}
                             placeholder="Type your question here..."
                             disabled={isLoading}
                             className="chatbot-input"

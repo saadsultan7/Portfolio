@@ -29,11 +29,22 @@ export default async function handler(
             body: JSON.stringify(req.body),
         });
 
+        const data = await response.json();
+
         if (!response.ok) {
-            throw new Error(`Gemini API error: ${response.status}`);
+            console.error('Gemini API error:', response.status, data);
+            return res.status(response.status).json({
+                error: 'Gemini API error',
+                details: data,
+                message: data.error?.message || `API returned status ${response.status}`,
+            });
         }
 
-        const data = await response.json();
+        // Log successful response for debugging
+        console.log('Gemini API success:', {
+            hasCandidates: !!data.candidates,
+            candidateCount: data.candidates?.length || 0
+        });
 
         // Return the response
         return res.status(200).json(data);
