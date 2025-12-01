@@ -283,16 +283,14 @@ export default function ChatBot() {
     };
 
     const clearChat = () => {
-        if (confirm('Are you sure you want to clear the chat history?')) {
-            localStorage.removeItem('chatHistory');
-            setMessages([
-                {
-                    text: "Hello! I am the AI assistant for Saad Sultan. How can I help you today?",
-                    sender: 'ai',
-                    timestamp: Date.now()
-                }
-            ]);
-        }
+        localStorage.removeItem('chatHistory');
+        setMessages([
+            {
+                text: "Hello! I am the AI assistant for Saad Sultan. How can I help you today?",
+                sender: 'ai',
+                timestamp: Date.now()
+            }
+        ]);
     };
 
     const handleKeyPress = (e: React.KeyboardEvent) => {
