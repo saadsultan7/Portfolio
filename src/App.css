@@ -19,6 +19,7 @@ html {
   --mail: #18312b;
   --mail-color: #b7e4db;
   --main: #18ca92;
+  --main-color: #07bd83;
   --body-color: #ffffff;
   --nav-color: #4b514e;
   --side-nav: #4b514e98;
@@ -34,6 +35,7 @@ body.dark {
   --mail: #b3e4dc;
   --mail-color: #201e1e;
   --main: #18fca9;
+  --main-color: #07bd83;
   --body-color: #18191a;
   --nav-color: #242625;
   --side-nav: #242526;

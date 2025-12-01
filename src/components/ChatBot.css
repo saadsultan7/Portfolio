@@ -6,7 +6,7 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--main), #18fca9);
+    background: linear-gradient(135deg, var(--main), #0bca84);
     border: none;
     cursor: pointer;
     display: flex;
@@ -67,7 +67,7 @@
 
 /* Header */
 .chatbot-header {
-    background: linear-gradient(135deg, var(--main), #00242b);
+    background: linear-gradient(135deg, var(--main-color), #00242b);
     padding: 20px;
     display: flex;
     align-items: center;
