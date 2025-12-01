@@ -101,7 +101,7 @@ const knowledgeBase = {
     ]
 };
 
-const API_KEY = "AIzaSyDbR7n8czcQfwIRq00uaiXiGu952TgV6pM";
+const API_KEY = "AIzaSyDU6fcJ3Zfxh-dCklK0SnSFxuKBz1UA-1A";
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${API_KEY}`;
 const MAX_HISTORY = 50;
 
