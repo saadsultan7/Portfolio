@@ -175,7 +175,7 @@
         // When running this file on your local machine, you MUST replace the 
         // empty string below with your actual Gemini API Key.
         // =======================================================================
-        const apiKey = "AIzaSyDbR7n8czcQfwIRq00uaiXiGu952TgV6pM"; // <-- INSERT YOUR KEY HERE FOR LOCAL RUNS
+        const apiKey = "AIzaSyC_YsyN8Z6AUNgwfmp5szopWJ2f-EBoicU"; // <-- INSERT YOUR KEY HERE FOR LOCAL RUNS
 
         const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
 
