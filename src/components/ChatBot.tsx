@@ -101,8 +101,8 @@ const knowledgeBase = {
     ]
 };
 
-const API_KEY = "AIzaSyDU6fcJ3Zfxh-dCklK0SnSFxuKBz1UA-1A";
-const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${API_KEY}`;
+// Use backend API endpoint instead of calling Gemini directly
+const API_URL = '/api/chat';
 const MAX_HISTORY = 50;
 
 const systemPrompt = `You are a helpful, friendly, and professional AI Assistant for ${knowledgeBase.name}.
