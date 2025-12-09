@@ -929,7 +929,7 @@ hr {
 
 .slider-button-Web {
   position: absolute;
-  top: 90%;
+  top: 82%;
   transform: translateY(-50%);
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
@@ -1038,10 +1038,14 @@ hr {
 
   .slider-button-Web.prevs {
     left: 100px;
+      top: 90%;
+
     border: 1px solid #18ca92;
   }
 
   .slider-button-Web.next {
+      top: 90%;
+
     right: 100px;
     border: 1px solid #18ca92;
   }
