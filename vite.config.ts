@@ -35,7 +35,7 @@ export default defineConfig(({ mode }) => {
             req.on('end', async () => {
               try {
                 console.log('🤖 Proxying request to Gemini API...');
-                const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
 
                 const response = await fetch(API_URL, {
                   method: 'POST',

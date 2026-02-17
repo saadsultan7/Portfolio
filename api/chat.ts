@@ -18,7 +18,7 @@ export default async function handler(
     }
 
     try {
-        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${API_KEY}`;
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${API_KEY}`;
 
         // Forward the request to Gemini API
         const response = await fetch(API_URL, {
