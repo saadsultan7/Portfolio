@@ -1,0 +1,149 @@
+/* About Styles */
+#About {
+    color: var(--body-text);
+    transition: 0.6s ease-in-out;
+    width: 100%;
+    padding-bottom: 8%;
+    padding-top: 4%;
+}
+
+.about-me {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 20%;
+    margin-bottom: 3%;
+}
+
+.about-me h2 {
+    padding-top: 10%;
+    padding-bottom: 2%;
+}
+
+.about-me p {
+    width: 50%;
+    word-spacing: 6px;
+}
+
+hr {
+    height: 5px;
+    width: 80%;
+    background-color: var(--body-text);
+}
+
+.container-1 {
+    padding-left: 10%;
+    padding-top: 5%;
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+}
+
+.container-1 .know-me {
+    width: 100%;
+    word-spacing: 4px;
+    line-height: 190%;
+    text-align: left;
+}
+
+.container-1 .know-me h3 {
+    margin-bottom: 8%;
+}
+
+.container-1 .know-me p {
+    width: 100%;
+    font-weight: 500;
+    word-spacing: 9%;
+    margin-bottom: 5%;
+    line-height: 150%;
+}
+
+.container-1 .know-me b {
+    font-style: italic;
+    font-weight: 700;
+    color: var(--main);
+}
+
+.know-me a {
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.my-skills {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-top: 50px;
+    font-size: 20px;
+    flex-direction: column;
+}
+
+.my-skills h3 {
+    font-weight: 800;
+}
+
+.skills {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
+    flex-wrap: wrap;
+}
+
+.skills_skill {
+    padding: 2px 5px;
+    margin: 5px 15px;
+    font-size: 18px;
+    background: rgba(153, 153, 153, 0.2);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.skills_skill:hover {
+    transform: translateY(-3px);
+}
+
+.skills_skill::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: -100%;
+    background: linear-gradient(90deg,
+            transparent,
+            transparent);
+    transition: 0.5s;
+}
+
+.skills_skill:hover::after {
+    left: 100%;
+}
+
+@media (max-width: 768px) {
+    #About {
+        padding-top: 10%;
+    }
+
+    .container-1 {
+        flex-direction: column;
+    }
+
+    .container-1 .know-me {
+        width: 100%;
+        word-spacing: 4px;
+        line-height: 190%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 1024px) {
+    .about-me p {
+        width: 90%;
+        word-spacing: 6px;
+    }
+}

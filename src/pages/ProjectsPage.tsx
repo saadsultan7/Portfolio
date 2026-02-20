@@ -3,6 +3,7 @@ import React from 'react';
 import { lazy } from 'react';
 const Contact = lazy(() => import("../components/Contact"));
 const Navbar = lazy(() => import("../components/Navbar"));
+import '../components/Projects.css';
 import MobileItem from '../components/MobileItem';
 import WebItem from '../components/WebItem';
 import chatImage2 from '../assets/s0.jpg';
@@ -27,7 +28,7 @@ import fyp6 from '../assets/fyp6.jpg';
 import fyp7 from '../assets/fyp7.jpg';
 import PAB from '../assets/PAB.jpg';
 import PAB1 from '../assets/PAB1.jpg';
-import PAB2 from '../assets/PAB2.jpg';  
+import PAB2 from '../assets/PAB2.jpg';
 import PAB3 from '../assets/PAB3.jpg';
 import PAB4 from '../assets/PAB4.jpg';
 import Umrah from '../assets/Umrah.jpg';
@@ -54,22 +55,22 @@ const ProjectsPage: React.FC = () => {
 
   return (
     <>
-    <Navbar />
-    <section style={{marginTop:60}} id="Projects">
-      <div className="project-section">
-        <h1 data-aos="fade-up">
-          Projects
-        </h1>
-        <p data-aos="fadfe-up">
+      <Navbar />
+      <section style={{ marginTop: 60 }} id="Projects">
+        <div className="project-section">
+          <h1 data-aos="fade-up">
+            Projects
+          </h1>
+          <p data-aos="fadfe-up">
 
             Here you will find some of the personal and clients projects that I
             created with each project containing its own case study.
-        </p>
- <WebItem
-          id='Valve'
-          title={"Valve Management System"}
-          description={
-            `Comprehensive Industrial Asset & Maintenance Management App.
+          </p>
+          <WebItem
+            id='Valve'
+            title={"Valve Management System"}
+            description={
+              `Comprehensive Industrial Asset & Maintenance Management App.
 Tracks industrial assets such as valves, heat exchangers, and motors.
 Manages contractors and subcontractors with structured assignment flows.
 Supports classification and tracking of valve types, work areas, and scopes of work.
@@ -78,14 +79,14 @@ Provides real-time progress tracking for all maintenance and project activities.
 Generates multiple report types: status reports, on-hold reports, descope reports, and detailed performance reports.
 Streamlines workflow, documentation, and coordination across industrial projects.
 Ensures full visibility, accountability, and traceability of all maintenance operations.`
-          }
-          imageSrcs={[valve1,valve2,valve3,valve4,valve5,valve6,valve7]}
-          reverse
-          link="https://satorp.tagntech.com/"
+            }
+            imageSrcs={[valve1, valve2, valve3, valve4, valve5, valve6, valve7]}
+            reverse
+            link="https://satorp.tagntech.com/"
           />
-        <MobileItem
-          title={"Noor Shop"}
-          description={`Cross-platform mobile app (iOS & Android)
+          <MobileItem
+            title={"Noor Shop"}
+            description={`Cross-platform mobile app (iOS & Android)
           JWT authentication with secure token storage
 
           Product browsing with search, filters, and category navigation
@@ -99,14 +100,14 @@ Ensures full visibility, accountability, and traceability of all maintenance ope
           Frontend built solo with React Native CLI and Redux Toolkit
 
           Optimized performance: FlatList pagination, minimal animations, backend WebP images`
-           }
-          imageSrcs={[noorImage1, noorImage2, noorImage3]}
-        />
-        <WebItem
-          id='hifz'
-          title={"HIFZ Tracking "}
-          description={
-            `Web application for tracking Hifz progress and managing students
+            }
+            imageSrcs={[noorImage1, noorImage2, noorImage3]}
+          />
+          <WebItem
+            id='hifz'
+            title={"HIFZ Tracking "}
+            description={
+              `Web application for tracking Hifz progress and managing students
 
 Features include assignments, attendance, messaging, and notice board
 
@@ -117,15 +118,15 @@ Admin panel for managing students, teachers, and content
 Frontend built with React; backend provided in Node.js
 
 Real-time notifications and updates`
-          }
-          imageSrcs={[hifz ,hifz2, hifz3, hifz4, hifz5, hifz6, hifz7]}
-          reverse
-          link="https://hifztrackerui.onrender.com/"
+            }
+            imageSrcs={[hifz, hifz2, hifz3, hifz4, hifz5, hifz6, hifz7]}
+            reverse
+            link="https://hifztrackerui.onrender.com/"
           />
-        <MobileItem
-          title={"Food Recipe"}
-          description={
-             `Mobile app built with React Native (iOS & Android)
+          <MobileItem
+            title={"Food Recipe"}
+            description={
+              `Mobile app built with React Native (iOS & Android)
 
 Integrated TheMealDB API for recipes
 
@@ -136,14 +137,14 @@ Navigation handled with React Navigation
 Animations implemented using React Native Reanimated
 
 Lightweight and responsive UI for smooth performance`
-            
-          }
-          imageSrcs={[foodImage1, foodImage2, foodImage3]}
-        />
-         <WebItem
-          id='fyp'
-          title={"Final Year Project"}
-          description={
+
+            }
+            imageSrcs={[foodImage1, foodImage2, foodImage3]}
+          />
+          <WebItem
+            id='fyp'
+            title={"Final Year Project"}
+            description={
               `Final Year Project built on MERN Stack (MongoDB, Express, React, Node.js)
 
 Real-time messaging using WebSockets
@@ -157,14 +158,14 @@ Admin panel for managing users and content
 Advanced filter system: find the best teacher or job efficiently
 
 Designed for smooth UX and responsive performance`
-          }
-          imageSrcs={[fyp1,fyp2,fyp3,fyp4,fyp5,fyp6,fyp7]}
-          reverse
-          
+            }
+            imageSrcs={[fyp1, fyp2, fyp3, fyp4, fyp5, fyp6, fyp7]}
+            reverse
+
           />
-        <MobileItem
-          title={'Chatz'}
-          description={
+          <MobileItem
+            title={'Chatz'}
+            description={
               `Mobile messaging app similar to WhatsApp
 
 Backend powered by Firebase for storing users and messages
@@ -174,14 +175,14 @@ Signup via Google verification or email
 Local user data storage implemented with MySQL
 
 Built with React Native for smooth, cross-platform performance`
-          }
-          imageSrcs={[chatImage1, chatImage2, chatImage3]}
-        />
-        <WebItem
-          id='pab'
-          title={"PAB"}
-          description={
-`Platform for anesthesiology students to prepare for board exams
+            }
+            imageSrcs={[chatImage1, chatImage2, chatImage3]}
+          />
+          <WebItem
+            id='pab'
+            title={"PAB"}
+            description={
+              `Platform for anesthesiology students to prepare for board exams
 
 Over 1,000+ questions with multiple question types and progress tracking
 
@@ -194,15 +195,15 @@ Authentication: JWT tokens, Google & Apple login
 Frontend state managed with Redux
 
 Responsive and intuitive UI for seamless exam preparation`
-          }
-          imageSrcs={[PAB,PAB1,PAB2,PAB3,PAB4]}
-          reverse
-          link="https://www.pabsmartprep.com/"
+            }
+            imageSrcs={[PAB, PAB1, PAB2, PAB3, PAB4]}
+            reverse
+            link="https://www.pabsmartprep.com/"
           />
-        <MobileItem
-          title={"Parchi"}
-          description={
-            `Point of Sale application for multiple types of vendors
+          <MobileItem
+            title={"Parchi"}
+            description={
+              `Point of Sale application for multiple types of vendors
 
 Frontend built with React Native; backend in Python Django; PostgreSQL database
 
@@ -211,16 +212,16 @@ State management with Redux
 Features include Bluetooth printer integration, camera integration, and more
 
 Optimized for smooth performance on mobile devices`
-          }
-          imageSrcs={[parchi1, parchi2, parchi3, parchi4]}
+            }
+            imageSrcs={[parchi1, parchi2, parchi3, parchi4]}
           // reverse
-        />
-       
-        <WebItem
-          id='umrah'
-          title={"Umrah Portal"}
-          description={
-            `SaaS platform for travel agencies to manage customers, packages, and bookings
+          />
+
+          <WebItem
+            id='umrah'
+            title={"Umrah Portal"}
+            description={
+              `SaaS platform for travel agencies to manage customers, packages, and bookings
 
 Handles visa processing, flight & hotel arrangements, payment tracking, and customer communication
 
@@ -229,14 +230,14 @@ Multi-user roles: Admin and Agent
 Analytics dashboards and automated notifications for better workflow
 
 Built as a complete web application with a focus on efficiency and usability`
-          }
-          imageSrcs={[Umrah, Umrah2, Umrah3, Umrah4, Umrah5, Umrah6]}
-          reverse
-          link="https://www.group2travel.com/"
+            }
+            imageSrcs={[Umrah, Umrah2, Umrah3, Umrah4, Umrah5, Umrah6]}
+            reverse
+            link="https://www.group2travel.com/"
           />
-      </div>
-    </section>
-    <Contact />
+        </div>
+      </section>
+      <Contact />
     </>
   );
 };

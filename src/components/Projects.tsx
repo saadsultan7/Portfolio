@@ -1,5 +1,6 @@
 import React from 'react';
 import MobileItem from './MobileItem';
+import './Projects.css';
 import WebItem from './WebItem';
 import noorImage1 from '../assets/s21.jpg';
 import noorImage2 from '../assets/s22.jpg';

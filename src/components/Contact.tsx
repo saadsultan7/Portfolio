@@ -1,4 +1,5 @@
 import React from 'react';
+import './Contact.css';
 const Contact: React.FC = () => {
   return (
     <section id="Contact">
@@ -11,20 +12,20 @@ const Contact: React.FC = () => {
         <li><a target='_blank' href="https://x.com/itachi78900?s=08">Twitter</a></li>
         <li><a target='_blank' href="https://www.facebook.com/SaadSultan.50000MW?mibextid=ZbWKwL">Facebook</a></li>
       </ul>
-     <h3
-  className="mail"
-  data-aos="fade-up"
-  data-aos-duration="2000"
-  data-aos-offset="50"
->
-  Shoot me a mail at{" "}
-  <a
-    style={{ color: '#006741ff' }}
-    href="mailto:saadsultan4004@gmail.com"
-  >
-    saadsultan4004@gmail.com
-  </a>
-</h3>
+      <h3
+        className="mail"
+        data-aos="fade-up"
+        data-aos-duration="2000"
+        data-aos-offset="50"
+      >
+        Shoot me a mail at{" "}
+        <a
+          style={{ color: '#006741ff' }}
+          href="mailto:saadsultan4004@gmail.com"
+        >
+          saadsultan4004@gmail.com
+        </a>
+      </h3>
 
       <h4 className="copy-right">
         Copyright &copy; 2024 Saad Sultan

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import cocosignLogo from '../assets/cover.png';
 import 'boxicons/css/boxicons.min.css';
+import './Navbar.css';
 import { useNavigate } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
@@ -101,7 +102,7 @@ const Navbar: React.FC = () => {
         <div className="menu" ref={sidebarRef}>
           <div className="logo-toggle">
             <span className="logo logo-with-line"><a onClick={goToHome} style={{ cursor: 'pointer' }}><img src={cocosignLogo} alt="Logo" /></a></span>
-            {/* <i className="bx bx-x siderbarClose" onClick={toggleSidebar}></i> */ }
+            {/* <i className="bx bx-x siderbarClose" onClick={toggleSidebar}></i> */}
           </div>
 
           <ul className="nav-links logo-with-lin">
@@ -112,11 +113,11 @@ const Navbar: React.FC = () => {
           </ul>
         </div>
 
-          <div className={`searchToggle ${isSearchActive ? 'active' : ''}`} onClick={toggleSearch}>
+        <div className={`searchToggle ${isSearchActive ? 'active' : ''}`} onClick={toggleSearch}>
 
-          </div>
+        </div>
 
-          <div className="darkLight-searchBox">
+        <div className="darkLight-searchBox">
           <div className={`dark-light ${isDarkMode ? 'active' : ''}`} onClick={toggleDarkMode}>
             <i className="bx bx-moon moon"></i>
             <i className="bx bx-sun sun"></i>
