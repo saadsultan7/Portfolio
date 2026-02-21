@@ -20,7 +20,7 @@
 
 .chatbot-speed-dial:hover {
     transform: scale(1.1);
-    box-shadow: 0 6px 30px rgba(24, 202, 146, 0.6);
+    /* box-shadow: 0 6px 30px rgba(24, 202, 146, 0.6); */
 }
 
 .chatbot-speed-dial.open {

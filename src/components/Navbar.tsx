@@ -1,16 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
-import cocosignLogo from '../assets/cover.png';
+import saadLogoBlack from '../assets/saadlogoblack.svg';
+import saadLogoGreen from '../assets/saadlogogreen.svg';
 import 'boxicons/css/boxicons.min.css';
 import './Navbar.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
-  const [isSearchActive, setIsSearchActive] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('Home');
   const sidebarRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLElement>(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const savedMode = localStorage.getItem('mode');
@@ -20,6 +23,13 @@ const Navbar: React.FC = () => {
       setIsDarkMode(true);
       document.body.classList.add('dark');
     }
+
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
@@ -30,10 +40,47 @@ const Navbar: React.FC = () => {
     }
   }, [isDarkMode]);
 
+  // Handle active section highlighting
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      setActiveSection('');
+      return;
+    }
+
+    const sections = ['Home', 'About', 'Experience', 'Projects', 'Contact'];
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-45% 0px -45% 0px', // Trigger when section is in middle of viewport
+      threshold: 0
+    };
+
+    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersect, observerOptions);
+
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [location.pathname]);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (event.target === menuButtonRef.current) return;
-      if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target as Node) &&
+        menuButtonRef.current &&
+        !menuButtonRef.current.contains(event.target as Node)
+      ) {
         setIsSidebarOpen(false);
       }
     };
@@ -56,81 +103,97 @@ const Navbar: React.FC = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  const toggleSearch = () => {
-    setIsSearchActive(!isSearchActive);
-  };
-
-  // New function to close sidebar
   const closeSidebar = () => {
     setIsSidebarOpen(false);
   };
 
-  // Function to handle navigation to home page
-  const goToHome = () => {
-    navigate('/');
-    closeSidebar();
-  };
-
-  // Function to handle navigation to specific sections
   const navigateToSection = (sectionId: string) => {
-    // If we're already on the home page and navigating to Home section, just scroll to top
-    if (sectionId === 'Home') {
-      navigate('/');
-      // The ScrollToTop component in App.tsx should handle scrolling to top
+    if (location.pathname !== '/') {
+      navigate('/', { state: { scrollTo: sectionId } });
     } else {
-      // For other sections, navigate to home and then scroll to section
-      navigate('/');
-      // Use setTimeout to ensure navigation completes before trying to scroll
-      setTimeout(() => {
+      if (sectionId === 'Home') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
         const element = document.getElementById(sectionId);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
         }
-      }, 100);
+      }
     }
     closeSidebar();
   };
 
+  const goToHome = () => {
+    if (location.pathname === '/') {
+      window.scrollTo({ top: 100, behavior: 'smooth' });
+    } else {
+      navigate('/');
+    }
+    closeSidebar();
+  };
+
+  const navLinks = [
+    { name: 'Home', id: 'Home' },
+    { name: 'About', id: 'About' },
+    { name: 'Experience', id: 'Experience' },
+    { name: 'Projects', id: 'Projects' },
+    { name: 'Contact', id: 'Contact' }
+  ];
+
   return (
-    <nav className={isSidebarOpen ? 'active' : ''}>
-      <div className="nav-bar">
-        <i className="bx bx-menu sidebarOpen" onClick={toggleSidebar} ref={menuButtonRef}></i>
-        <span className="logo navLogo logo-with-line">
-          <a onClick={goToHome} style={{ cursor: 'pointer' }}><img src={cocosignLogo} alt="Logo" /></a>
-        </span>
+    <nav className={`${scrolled ? 'nav-scrolled' : ''} ${isSidebarOpen ? 'sidebar-open' : ''}`}>
+      <div className="nav-container">
+        <div className="nav-logo" onClick={goToHome}>
+          <img src={isDarkMode ? saadLogoGreen : saadLogoBlack} alt="SAAD Logo" />
+        </div>
 
-        <div className="menu" ref={sidebarRef}>
-          <div className="logo-toggle">
-            <span className="logo logo-with-line"><a onClick={goToHome} style={{ cursor: 'pointer' }}><img src={cocosignLogo} alt="Logo" /></a></span>
-            {/* <i className="bx bx-x siderbarClose" onClick={toggleSidebar}></i> */}
-          </div>
-
-          <ul className="nav-links logo-with-lin">
-            <li><a onClick={() => navigateToSection('Home')} style={{ cursor: 'pointer' }}>Home</a></li>
-            <li><a onClick={() => navigateToSection('About')} style={{ cursor: 'pointer' }}>About</a></li>
-            <li><a onClick={() => navigateToSection('Projects')} style={{ cursor: 'pointer' }}>Projects</a></li>
-            <li><a onClick={() => navigateToSection('Contact')} style={{ cursor: 'pointer' }}>Contact</a></li>
+        <div className="nav-content">
+          <ul className="nav-links">
+            {navLinks.map(link => (
+              <li key={link.id}>
+                <a
+                  onClick={() => navigateToSection(link.id)}
+                  className={activeSection === link.id ? 'active' : ''}
+                >
+                  {link.name}
+                </a>
+              </li>
+            ))}
           </ul>
-        </div>
 
-        <div className={`searchToggle ${isSearchActive ? 'active' : ''}`} onClick={toggleSearch}>
-
-        </div>
-
-        <div className="darkLight-searchBox">
-          <div className={`dark-light ${isDarkMode ? 'active' : ''}`} onClick={toggleDarkMode}>
-            <i className="bx bx-moon moon"></i>
-            <i className="bx bx-sun sun"></i>
-          </div>
-
-          <div className="searchBox">
-            <div className="search-field">
-              <input type="text" placeholder="Search..." />
-              <i className="bx bx-search"></i>
+          <div className="nav-actions">
+            <div className="theme-toggle" onClick={toggleDarkMode}>
+              {isDarkMode ? <i className="bx bx-sun"></i> : <i className="bx bx-moon"></i>}
+            </div>
+            <div className="menu-toggle" onClick={toggleSidebar} ref={menuButtonRef as any}>
+              <i className={isSidebarOpen ? 'bx bx-x' : 'bx bx-menu'}></i>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Mobile Sidebar */}
+      <div className={`mobile-menu ${isSidebarOpen ? 'active' : ''}`} ref={sidebarRef}>
+        <div className="mobile-menu-header">
+          <div className="nav-logo" onClick={goToHome}>
+            <img src={isDarkMode ? saadLogoGreen : saadLogoBlack} alt="SAAD Logo" />
+          </div>
+          <i className="bx bx-x close-menu" onClick={closeSidebar}></i>
+        </div>
+        <ul className="mobile-nav-links">
+          {navLinks.map(link => (
+            <li key={link.id}>
+              <a
+                onClick={() => navigateToSection(link.id)}
+                className={activeSection === link.id ? 'active' : ''}
+              >
+                {link.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className={`overlay ${isSidebarOpen ? 'active' : ''}`} onClick={closeSidebar}></div>
     </nav>
   );
 };
