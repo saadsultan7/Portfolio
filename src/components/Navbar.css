@@ -29,7 +29,7 @@ body.dark nav.nav-scrolled {
     max-width: 1200px;
     height: 100%;
     margin: 0 auto;
-    padding: 0 4rem;
+    padding: 0 18rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -59,7 +59,7 @@ body.dark nav.nav-scrolled {
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 4rem;
     list-style: none;
 }
 

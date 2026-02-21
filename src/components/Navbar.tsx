@@ -143,9 +143,9 @@ const Navbar: React.FC = () => {
   return (
     <nav className={`${scrolled ? 'nav-scrolled' : ''} ${isSidebarOpen ? 'sidebar-open' : ''}`}>
       <div className="nav-container">
-        <div className="nav-logo" onClick={goToHome}>
+        {/* <div className="nav-logo" onClick={goToHome}>
           <img src={isDarkMode ? saadLogoGreen : saadLogoBlack} alt="SAAD Logo" />
-        </div>
+        </div> */}
 
         <div className="nav-content">
           <ul className="nav-links">
