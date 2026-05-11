@@ -34,8 +34,8 @@ export default defineConfig(({ mode }) => {
 
             req.on('end', async () => {
               try {
-                console.log('🤖 Proxying request to Gemini API...');
-                const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
+                console.log('🤖 Proxying streaming request to Gemini API...');
+                const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:streamGenerateContent?alt=sse&key=${apiKey}`;
 
                 const response = await fetch(API_URL, {
                   method: 'POST',
@@ -50,16 +50,37 @@ export default defineConfig(({ mode }) => {
                   console.error(`❌ Gemini API Error: ${response.status} ${response.statusText}`);
                   console.error(`Details: ${errorText}`);
                   res.statusCode = response.status;
-                  res.end(errorText); // Pass the actual error back
+                  res.end(errorText);
                   return;
                 }
 
-                const data = await response.json();
-                console.log('✅ Gemini API response received');
-
-                res.setHeader('Content-Type', 'application/json');
+                console.log('✅ Gemini API streaming response received');
+                res.setHeader('Content-Type', 'text/event-stream');
+                res.setHeader('Cache-Control', 'no-cache');
+                res.setHeader('Connection', 'keep-alive');
                 res.statusCode = 200;
-                res.end(JSON.stringify(data));
+
+                const reader = response.body?.getReader();
+                if (!reader) {
+                  res.statusCode = 500;
+                  res.end(JSON.stringify({ error: 'No response stream' }));
+                  return;
+                }
+
+                const pump = async () => {
+                  while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) {
+                      res.end();
+                      break;
+                    }
+                    res.write(value);
+                  }
+                };
+                pump().catch(err => {
+                  console.error('❌ Stream error:', err);
+                  res.end();
+                });
               } catch (error) {
                 console.error('❌ Proxy Internal Error:', error);
                 res.statusCode = 500;

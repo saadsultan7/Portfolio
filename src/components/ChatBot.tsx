@@ -274,92 +274,91 @@ export default function ChatBot() {
                 hasSystemInstruction: !!payload.systemInstruction
             });
 
+            // Add a placeholder AI message for streaming
+            const aiMessageId = Date.now();
+            const aiMessage: Message = {
+                text: '',
+                sender: 'ai',
+                timestamp: aiMessageId
+            };
+            setMessages(prev => [...prev, aiMessage]);
+
             const response = await fetch(API_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
 
-            console.log('Response status:', response.status, response.statusText);
-
             if (!response.ok) {
                 const errorText = await response.text();
-                console.error('API Error Response:', {
-                    status: response.status,
-                    statusText: response.statusText,
-                    body: errorText
-                });
+                console.error('API Error Response:', response.status, errorText);
                 throw new Error(`API call failed with status: ${response.status}`);
             }
 
-            const result = await response.json();
-            console.log('Full API Response:', JSON.stringify(result, null, 2));
-            
-            // Check for blocked content or safety issues
-            if (result.promptFeedback?.blockReason) {
-                console.error('Content blocked:', result.promptFeedback);
-                throw new Error('Content was blocked by safety filters');
-            }
-            
-            // Better error handling - check if we got a valid response
-            const candidate = result.candidates?.[0];
-            
-            // Check if response was blocked
-            if (candidate?.finishReason === 'SAFETY' || candidate?.finishReason === 'RECITATION') {
-                console.error('Response blocked:', candidate.finishReason, candidate.safetyRatings);
-                throw new Error('Response was blocked by safety filters');
-            }
-            
-            if (!candidate || !candidate.content || !candidate.content.parts || candidate.content.parts.length === 0) {
-                console.error('Invalid API response structure:', result);
-                throw new Error('Invalid response from AI');
-            }
+            const reader = response.body?.getReader();
+            if (!reader) throw new Error('No response stream');
 
-            let aiResponse = candidate.content.parts[0].text;
-            
-            if (!aiResponse || aiResponse.trim() === '') {
-                console.error('Empty response from AI');
-                aiResponse = "I'm here to help! Could you please rephrase your question?";
-            }
+            const decoder = new TextDecoder();
+            let fullText = '';
+            let buffer = '';
 
-            // Extract sources if available
-            const groundingMetadata = result.candidates?.[0]?.groundingMetadata;
-            const sources = groundingMetadata?.groundingAttributions
-                ?.map((attr: any) => ({
-                    uri: attr.web?.uri,
-                    title: attr.web?.title,
-                }))
-                .filter((source: any) => source.uri && source.title);
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
 
-            if (sources && sources.length > 0) {
-                aiResponse += '\n\n**Sources:**\n';
-                sources.slice(0, 3).forEach((source: any) => {
-                    aiResponse += `- [${source.title}](${source.uri})\n`;
-                });
+                buffer += decoder.decode(value, { stream: true });
+                const lines = buffer.split('\n');
+                buffer = lines.pop() || '';
+
+                for (const line of lines) {
+                    if (!line.startsWith('data: ')) continue;
+                    const jsonStr = line.slice(6).trim();
+                    if (!jsonStr) continue;
+
+                    try {
+                        const chunk = JSON.parse(jsonStr);
+                        const text = chunk.candidates?.[0]?.content?.parts?.[0]?.text;
+                        if (text) {
+                            fullText += text;
+                            setMessages(prev =>
+                                prev.map(msg =>
+                                    msg.timestamp === aiMessageId
+                                        ? { ...msg, text: fullText }
+                                        : msg
+                                )
+                            );
+                        }
+                    } catch {
+                        // skip malformed chunks
+                    }
+                }
             }
 
-            const aiMessage: Message = {
-                text: aiResponse,
-                sender: 'ai',
-                timestamp: Date.now()
-            };
-
-            setMessages(prev => [...prev, aiMessage]);
+            if (!fullText.trim()) {
+                setMessages(prev =>
+                    prev.map(msg =>
+                        msg.timestamp === aiMessageId
+                            ? { ...msg, text: "I'm here to help! Could you please rephrase your question?" }
+                            : msg
+                    )
+                );
+            }
         } catch (error) {
             console.error('Error fetching AI response:', error);
-            console.error('Error details:', {
-                message: error instanceof Error ? error.message : 'Unknown error',
-                stack: error instanceof Error ? error.stack : undefined,
-                type: typeof error,
-                error: error
+
+            const errorText = "I'm sorry, I encountered an error while processing your request. Please try again.";
+            setMessages(prev => {
+                // If we already added a placeholder, update it instead of adding another
+                const hasPlaceholder = prev.some(msg => msg.sender === 'ai' && msg.text === '');
+                if (hasPlaceholder) {
+                    return prev.map(msg =>
+                        msg.sender === 'ai' && msg.text === ''
+                            ? { ...msg, text: errorText }
+                            : msg
+                    );
+                }
+                return [...prev, { text: errorText, sender: 'ai', timestamp: Date.now() }];
             });
-            
-            const errorMessage: Message = {
-                text: "I'm sorry, I encountered an error while processing your request. Please try again.",
-                sender: 'ai',
-                timestamp: Date.now()
-            };
-            setMessages(prev => [...prev, errorMessage]);
         } finally {
             setIsLoading(false);
         }
@@ -427,12 +426,14 @@ export default function ChatBot() {
                     {/* Messages */}
                     <div className="chatbot-messages" ref={chatMessagesRef}>
                         {messages.map((msg, index) => (
-                            <div key={index} className={`chatbot-message-wrapper ${msg.sender}`}>
-                                <div
-                                    className={`chatbot-message ${msg.sender}`}
-                                    dangerouslySetInnerHTML={{ __html: parseMarkdown(msg.text) }}
-                                />
-                            </div>
+                            msg.text === '' ? null : (
+                                <div key={index} className={`chatbot-message-wrapper ${msg.sender}`}>
+                                    <div
+                                        className={`chatbot-message ${msg.sender}`}
+                                        dangerouslySetInnerHTML={{ __html: parseMarkdown(msg.text) }}
+                                    />
+                                </div>
+                            )
                         ))}
                         {isLoading && (
                             <div className="chatbot-message-wrapper ai">
