@@ -51,6 +51,10 @@ import valve4 from '../assets/valve4.jpg'
 import valve5 from '../assets/valve5.jpg'
 import valve6 from '../assets/valve6.jpg'
 import valve7 from '../assets/valve7.jpg'
+import pos1 from '../assets/POS1.png'
+import pos2 from '../assets/POS2.png'
+import pos3 from '../assets/POS3.png'
+import pos4 from '../assets/POS4.png'
 const ProjectsPage: React.FC = () => {
 
   return (
@@ -234,6 +238,26 @@ Built as a complete web application with a focus on efficiency and usability`
             imageSrcs={[Umrah, Umrah2, Umrah3, Umrah4, Umrah5, Umrah6]}
             reverse
             link="https://www.group2travel.com/"
+          />
+          <WebItem
+            id='pos'
+            title={"POS System"}
+            description={
+              `Point of Sale system built with React Native Windows for desktop.
+
+Architected a robust offline-first system allowing uninterrupted operation without internet, with data sync on connectivity restore.
+
+Supports delivery, take-away, and dine-in order management workflows.
+
+Implemented inventory management for real-time stock tracking.
+
+Developed sales reporting and analytics dashboards.
+
+Built customer management features including customer profiles and order history.
+
+Integrated with external hardware such as receipt printers.`
+            }
+            imageSrcs={[pos1, pos2, pos3, pos4]}
           />
         </div>
       </section>
