@@ -1,9 +1,9 @@
-import React from "react"
+import { forwardRef } from "react"
 import "./button.css"
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ children, className = "", ...props }, ref) => {
     return (
       <button ref={ref} className={`button ${className}`} {...props}>

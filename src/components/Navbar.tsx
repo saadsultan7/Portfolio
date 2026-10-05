@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import saadLogoBlack from '../assets/saadlogoblack.svg';
 import saadLogoGreen from '../assets/saadlogogreen.svg';
 import 'boxicons/css/boxicons.min.css';
@@ -11,7 +11,7 @@ const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('Home');
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const menuButtonRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -143,10 +143,6 @@ const Navbar: React.FC = () => {
   return (
     <nav className={`${scrolled ? 'nav-scrolled' : ''} ${isSidebarOpen ? 'sidebar-open' : ''}`}>
       <div className="nav-container">
-        {/* <div className="nav-logo" onClick={goToHome}>
-          <img src={isDarkMode ? saadLogoGreen : saadLogoBlack} alt="SAAD Logo" />
-        </div> */}
-
         <div className="nav-content">
           <ul className="nav-links">
             {navLinks.map(link => (
@@ -162,10 +158,15 @@ const Navbar: React.FC = () => {
           </ul>
 
           <div className="nav-actions">
-            <div className="theme-toggle" onClick={toggleDarkMode}>
+            <button
+              className="theme-toggle"
+              onClick={toggleDarkMode}
+              aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+              type="button"
+            >
               {isDarkMode ? <i className="bx bx-sun"></i> : <i className="bx bx-moon"></i>}
-            </div>
-            <div className="menu-toggle" onClick={toggleSidebar} ref={menuButtonRef as any}>
+            </button>
+            <div className="menu-toggle" onClick={toggleSidebar} ref={menuButtonRef}>
               <i className={isSidebarOpen ? 'bx bx-x' : 'bx bx-menu'}></i>
             </div>
           </div>

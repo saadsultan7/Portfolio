@@ -1,17 +1,17 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback, memo } from 'react';
 import useImageCache from '../hooks/useImageCache';
-import { Button } from './ui/button'; // Import the Button component
+import { Button } from './ui/button';
 
 interface WebItemProps {
   title: React.ReactNode;
-  description: string;  // keep as string for splitting into bullets
+  description: string;
   imageSrcs: string[];
   reverse?: boolean;
   id: string;
   link?: string;
 }
 
-const WebItem: React.FC<WebItemProps> = ({ title, description, imageSrcs, reverse, link }) => {
+const WebItem: React.FC<WebItemProps> = memo(({ title, description, imageSrcs, reverse, link }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const nextImage = useCallback(() => {
@@ -27,25 +27,30 @@ const WebItem: React.FC<WebItemProps> = ({ title, description, imageSrcs, revers
   return (
     <div className={`project-item ${reverse ? 'reverse' : ''}`}>
       <div className="project-details">
-        <h3 data-aos={reverse ? "fade-up-left" : "fade-up-right"}>{title}</h3>
-        <p data-aos={reverse ? "fade-up-left" : "fade-up-right"}>
-          {description.split('\n').filter(Boolean).map((line, idx) => (
-            <span key={idx} style={{ display: 'block', marginBottom: 6 }}>
-              • {line}
-            </span>
-          ))}
+        <h3 data-aos={reverse ? 'fade-up-left' : 'fade-up-right'}>{title}</h3>
+        <p data-aos={reverse ? 'fade-up-left' : 'fade-up-right'}>
+          {description
+            .split('\n')
+            .filter(Boolean)
+            .map((line, idx) => (
+              <span key={idx} style={{ display: 'block', marginBottom: 6 }}>
+                &bull; {line}
+              </span>
+            ))}
         </p>
         {link && (
           <div style={{ marginTop: '10px' }}>
-            <Button onClick={() => window.open(link, '_blank')}>
+            <Button onClick={() => window.open(link, '_blank', 'noopener,noreferrer')}>
               Visit Site
             </Button>
           </div>
         )}
       </div>
 
-      <div className="project-images-Web" data-aos={reverse ? "fade-up-right" : "fade-up-left"}>
-        <button className="slider-button-Web prevs" onClick={prevImage} aria-label="Previous image">&lt;</button>
+      <div className="project-images-Web" data-aos={reverse ? 'fade-up-right' : 'fade-up-left'}>
+        <button className="slider-button-Web prevs" onClick={prevImage} aria-label="Previous image">
+          &lt;
+        </button>
         <div className="image-container-Web">
           {displayImages.map((src, index) => (
             <img
@@ -53,17 +58,22 @@ const WebItem: React.FC<WebItemProps> = ({ title, description, imageSrcs, revers
               src={src}
               alt={`${title} - Image ${index + 1}`}
               className="responsive-image"
+              loading="lazy"
               style={{
                 display: index === currentImageIndex ? 'block' : 'none',
-                borderRadius: 20
+                borderRadius: 20,
               }}
             />
           ))}
         </div>
-        <button className="slider-button-Web next" onClick={nextImage} aria-label="Next image">&gt;</button>
+        <button className="slider-button-Web next" onClick={nextImage} aria-label="Next image">
+          &gt;
+        </button>
       </div>
     </div>
   );
-};
+});
+
+WebItem.displayName = 'WebItem';
 
 export default WebItem;

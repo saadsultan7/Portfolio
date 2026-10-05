@@ -1,18 +1,23 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import Navbar from "../components/Navbar";
-import Contact from "../components/Contact";
-import Home from "../components/Home";
-import About from "../components/About";
-import Experience from "../components/Experience";
-import Projects from "../components/Projects";
+import Navbar from '../components/Navbar';
+import Contact from '../components/Contact';
+import Home from '../components/Home';
+import About from '../components/About';
+import Experience from '../components/Experience';
+import Projects from '../components/Projects';
+
+interface LocationState {
+  scrollTo?: string;
+}
 
 export default function LandingPage() {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.state && (location.state as any).scrollTo) {
-      const sectionId = (location.state as any).scrollTo;
+    const state = location.state as LocationState | null;
+    if (state?.scrollTo) {
+      const sectionId = state.scrollTo;
       setTimeout(() => {
         if (sectionId === 'Home') {
           window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -22,19 +27,19 @@ export default function LandingPage() {
             element.scrollIntoView({ behavior: 'smooth' });
           }
         }
-      }, 500); // Wait for components to load
-      // Clear state to prevent re-scrolling on refresh
+      }, 500);
       window.history.replaceState({}, document.title);
     }
   }, [location]);
 
-  return (<>
-    <Navbar />
-    <Home />
-    <About />
-    <Experience />
-    <Projects />
-    <Contact />
-  </>
-  )
+  return (
+    <>
+      <Navbar />
+      <Home />
+      <About />
+      <Experience />
+      <Projects />
+      <Contact />
+    </>
+  );
 }

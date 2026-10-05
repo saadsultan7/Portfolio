@@ -104,6 +104,7 @@ body.dark nav.nav-scrolled {
 .theme-toggle {
     width: 40px;
     height: 40px;
+    border: none;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -113,6 +114,7 @@ body.dark nav.nav-scrolled {
     color: var(--body-text);
     transition: all 0.3s ease;
     background: rgba(0, 0, 0, 0.05);
+    padding: 0;
 }
 
 body.dark .theme-toggle {

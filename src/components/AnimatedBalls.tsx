@@ -182,7 +182,6 @@ const AnimatedBalls = () => {
             window.removeEventListener('resize', resizeCanvas);
             window.removeEventListener('mousemove', handleMouseMove);
             window.removeEventListener('scroll', handleScroll);
-            // clearInterval(heightUpdateInterval);
             observer.disconnect();
             if (animationFrameRef.current) {
                 cancelAnimationFrame(animationFrameRef.current);

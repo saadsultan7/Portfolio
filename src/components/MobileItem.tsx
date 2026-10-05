@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback, memo } from 'react';
 import useImageCache from '../hooks/useImageCache';
 
 interface MobileItemProps {
@@ -8,7 +8,7 @@ interface MobileItemProps {
   reverse?: boolean;
 }
 
-const MobileItem: React.FC<MobileItemProps> = ({ title, description, imageSrcs, reverse }) => {
+const MobileItem: React.FC<MobileItemProps> = memo(({ title, description, imageSrcs, reverse }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const cachedImages = useImageCache(imageSrcs);
 
@@ -21,40 +21,47 @@ const MobileItem: React.FC<MobileItemProps> = ({ title, description, imageSrcs, 
   }, [cachedImages.length]);
 
   return (
-    <div className={`project-item ${reverse ? 'reverse' : ''}` }>
+    <div className={`project-item ${reverse ? 'reverse' : ''}`}>
       <div className="project-details">
-        <h3 data-aos={reverse ? "fade-up-left" : "fade-up-right"}>{title}</h3>
-        <p data-aos={reverse ? "fade-up-left" : "fade-up-right"}>
-          {description.split('\n').filter(Boolean).map((line, idx) => (
-            <span key={idx} style={{ display: 'block', marginBottom: 6 }}>
-              • {line}
-            </span>
-          ))}
+        <h3 data-aos={reverse ? 'fade-up-left' : 'fade-up-right'}>{title}</h3>
+        <p data-aos={reverse ? 'fade-up-left' : 'fade-up-right'}>
+          {description
+            .split('\n')
+            .filter(Boolean)
+            .map((line, idx) => (
+              <span key={idx} style={{ display: 'block', marginBottom: 6 }}>
+                &bull; {line}
+              </span>
+            ))}
         </p>
       </div>
-      <div className="project-images" data-aos={reverse ? "fade-up-right" : "fade-up-left"}>
-        <button className="slider-button prev" onClick={prevImage} aria-label="Previous image">&lt;</button>
+      <div className="project-images" data-aos={reverse ? 'fade-up-right' : 'fade-up-left'}>
+        <button className="slider-button prev" onClick={prevImage} aria-label="Previous image">
+          &lt;
+        </button>
         <div className="image-container">
           {cachedImages.map((src, index) => (
-            <img 
+            <img
               key={index}
-              src={src} 
+              src={src}
               alt={`${title} - Image ${index + 1}`}
               className="responsive-image"
+              loading="lazy"
               style={{
                 display: index === currentImageIndex ? 'block' : 'none',
-                borderRadius:20,
-                justifyContent:"center",
-                alignContent:"center",
+                borderRadius: 20,
               }}
             />
           ))}
         </div>
-        <button className="slider-button next" onClick={nextImage} aria-label="Next image">&gt;</button>
+        <button className="slider-button next" onClick={nextImage} aria-label="Next image">
+          &gt;
+        </button>
       </div>
     </div>
   );
-};
+});
+
+MobileItem.displayName = 'MobileItem';
 
 export default MobileItem;
-

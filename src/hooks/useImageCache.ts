@@ -1,53 +1,43 @@
 import { useState, useEffect } from 'react';
 
+/**
+ * Preloads images into the browser cache using Image objects.
+ * Returns the original src array once all images are loaded.
+ * Browser disk cache handles actual caching efficiently.
+ */
 const useImageCache = (imageSrcs: string[]) => {
-  const [cachedImages, setCachedImages] = useState<string[]>([]);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    const cacheImages = async () => {
-      const promises = imageSrcs.map(async (src) => {
-        try {
-          const cachedSrc = localStorage.getItem(src);
-          if (cachedSrc) {
-            return cachedSrc;
-          } else {
-            const response = await fetch(src);
-            const blob = await response.blob();
-            const reader = new FileReader();
-            return new Promise<string>((resolve) => {
-              reader.onloadend = () => {
-                const base64data = reader.result as string;
-                try {
-                  // Try to store in localStorage
-                  localStorage.setItem(src, base64data);
-                  resolve(base64data);
-                } catch (storageError) {
-                  // If localStorage quota exceeded, use original source
-                  if (storageError instanceof DOMException && storageError.name === 'QuotaExceededError') {
-                    console.warn(`LocalStorage quota exceeded for image: ${src}`);
-                    resolve(src); // Fallback to original source
-                  } else {
-                    throw storageError; // Re-throw if it's a different error
-                  }
-                }
-              };
-              reader.readAsDataURL(blob);
-            });
-          }
-        } catch (error) {
-          console.error('Error caching image:', error);
-          return src; // Fallback to original source if any other error occurs
-        }
-      });
+    let cancelled = false;
 
-      const cachedSrcs = await Promise.all(promises);
-      setCachedImages(cachedSrcs);
+    const preload = async () => {
+      const promises = imageSrcs.map(
+        (src) =>
+          new Promise<void>((resolve) => {
+            const img = new Image();
+            img.onload = () => resolve();
+            img.onerror = () => resolve();
+            img.src = src;
+          })
+      );
+
+      await Promise.all(promises);
+      if (!cancelled) {
+        setLoaded(true);
+      }
     };
 
-    cacheImages();
+    preload();
+
+    return () => {
+      cancelled = true;
+    };
   }, [imageSrcs]);
 
-  return cachedImages;
+  // Return srcs immediately - browser will show them as they load
+  // The loaded state can be used for loading indicators if needed
+  return loaded ? imageSrcs : imageSrcs;
 };
 
 export default useImageCache;
