@@ -3,14 +3,14 @@ import './Experience.css';
 const Experience: React.FC = () => {
     const experiences = [
         {
-            date: "Feb 2025 - Present",
+            date: "Jan 2025 - Present",
             role: "Full Time React & React Native Dev",
             company: "Saudi Arabia Software House (Remote)",
             projects: ["Hifz Tracking", "Umrah Portal"],
             description: "Working remotely as a full-time developer, focusing on building scalable web and mobile applications for international clients."
         },
         {
-            date: "June 2024 - Jan 2025",
+            date: "Aug 2024 - Jan 2025",
             role: "Intern React & React Native Dev",
             company: "MAAQ Services",
             projects: ["PABSmart", "Parchi"],

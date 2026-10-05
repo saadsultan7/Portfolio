@@ -124,7 +124,7 @@ const knowledgeBase = {
     {
       title: 'Intern React & React Native Dev',
       company: 'MAAQ Services',
-      startDate: 'June 2024',
+      startDate: 'Aug 2024',
       endDate: 'Jan 2025',
       description:
         'Gained hands-on experience in a professional environment, contributing to key projects and enhancing skills in React and react native ecosystem.',
@@ -133,7 +133,7 @@ const knowledgeBase = {
     {
       title: 'React & React Native Dev',
       company: 'Saudi Arabia Software House',
-      startDate: 'Feb 2025',
+      startDate: 'Jan 2025',
       endDate: 'Present',
       description:
         'Working remotely as a full-time developer, focusing on building scalable web and mobile applications for international clients.',
